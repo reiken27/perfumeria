@@ -17,6 +17,7 @@ import com.tienda.perfumeria.services.JwtService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -24,7 +25,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
-
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -44,15 +44,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
+        // Buscar el JWT en las cookies
+        String jwt = extractJwtFromCookies(request);
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (jwt == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
         try {
-            final String jwt = authHeader.substring(7);
+            // Extraer el usuario del token JWT
             final String userEmail = jwtService.extractUsername(jwt);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -60,13 +61,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (userEmail != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
+                // Validar el token
                 if (jwtService.isTokenValid(jwt, userDetails)) {
+                    // Crear un objeto de autenticación
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities()
                     );
 
+                    // Establecer los detalles de autenticación
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
@@ -76,5 +80,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception exception) {
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
+    }
+
+    // Método para extraer el JWT desde las cookies
+    private String extractJwtFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("jwt".equals(cookie.getName())) {  // Asegúrate de que el nombre de la cookie sea "JWT"
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }

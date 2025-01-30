@@ -33,6 +33,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
+                .requestMatchers("/")
+                .permitAll()
+                .requestMatchers("/favicon.ico")
+                .permitAll()
+                .requestMatchers("/users/**")
+                .authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -52,7 +58,7 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(List.of("http://localhost:8080"));
         configuration.setAllowedMethods(List.of("GET", "POST"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true); 
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
