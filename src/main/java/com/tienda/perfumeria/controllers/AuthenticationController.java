@@ -71,4 +71,14 @@ public class AuthenticationController {
     public String showLoginForm() {
         return "login";
     }
+    
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwt", "");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return ResponseEntity.noContent().build();
+    }
 }
