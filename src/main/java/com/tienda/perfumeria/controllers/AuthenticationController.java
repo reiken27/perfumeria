@@ -54,15 +54,10 @@ public class AuthenticationController {
         // Generar token JWT
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        // Crear la cookie JWT
-        Cookie cookie = new Cookie("jwt", jwtToken);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false); // Cambia a true si usas HTTPS
-        cookie.setMaxAge((int) jwtService.getExpirationTime());
-        cookie.setPath("/");
+        int maxAge = (int) (jwtService.getExpirationTime());
+        String cookieValue = "jwt=" + jwtToken + "; Path=/; HttpOnly; SameSite=Strict; Max-Age=" + maxAge;
+        response.addHeader("Set-Cookie", cookieValue);
 
-        // Agregar la cookie a la respuesta
-        response.addCookie(cookie);
 
         // Enviar la respuesta con el token y el tiempo de expiración
         LoginResponse loginResponse = new LoginResponse()
