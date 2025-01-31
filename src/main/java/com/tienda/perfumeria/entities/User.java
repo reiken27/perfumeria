@@ -26,13 +26,38 @@ public class User implements UserDetails {
     private Integer id;
 
     @Column(nullable = false)
-    private String fullName;
+    private String name;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String mobileNum;
+
+    //credit card
+    @Column(nullable = false)
+    private CreditCard[] creditCard;
+
+    @Column(nullable = true)
+    private Address[] address;
+
+    @Column(nullable = true)
+    private String[] orders;
+
+    @Column(nullable = true)
+    private String[] cart;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private Date birthDate;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
@@ -43,17 +68,21 @@ public class User implements UserDetails {
     private Date updatedAt;
 
     @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
     }
 
     @Override
@@ -82,15 +111,6 @@ public class User implements UserDetails {
 
     public User setId(Integer id) {
         this.id = id;
-        return this;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public User setFullName(String fullName) {
-        this.fullName = fullName;
         return this;
     }
 
@@ -128,13 +148,97 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{"
-                + "id=" + id
-                + ", fullName='" + fullName + '\''
-                + ", email='" + email + '\''
-                + ", password='" + password + '\''
-                + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt
-                + '}';
+        return ("User{"
+                + "id="
+                + id
+                + ", fullName='"
+                + name
+                + ' '
+                + lastName
+                + '\''
+                + ", email='"
+                + email
+                + '\''
+                + ", password='"
+                + password
+                + '\''
+                + ", createdAt="
+                + createdAt
+                + ", updatedAt="
+                + updatedAt
+                + ", mobileNum="
+                + mobileNum
+                + ", address="
+                + address
+                + ", orders="
+                + orders
+                + ", cart="
+                + cart
+                + '}');
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMobileNum() {
+        return mobileNum;
+    }
+
+    public void setMobileNum(String mobileNum) {
+        this.mobileNum = mobileNum;
+    }
+
+    public CreditCard[] getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard[] creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public Address[] getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address[] address) {
+        this.address = address;
+    }
+
+    public String[] getOrders() {
+        return orders;
+    }
+
+    public void setOrders(String[] orders) {
+        this.orders = orders;
+    }
+
+    public String[] getCart() {
+        return cart;
+    }
+
+    public void setCart(String[] cart) {
+        this.cart = cart;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
 }

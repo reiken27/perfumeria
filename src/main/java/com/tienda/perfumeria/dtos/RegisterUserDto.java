@@ -1,10 +1,24 @@
 package com.tienda.perfumeria.dtos;
 
+import java.util.Date;
+
 public class RegisterUserDto {
 
     private String email;
+    private String name;
+    private String lastName;
     private String password;
-    private String fullName;
+    private Date birthDate;
+    private String mobileNum;
+
+    @Override
+    public String toString() {
+        return "RegisterUserDto{"
+                + "email='" + email + '\''
+                + ", password='" + password + '\''
+                + ", fullName='" + name + ' ' + lastName + '\''
+                + '}';
+    }
 
     public String getEmail() {
         return email;
@@ -25,20 +39,42 @@ public class RegisterUserDto {
     }
 
     public String getFullName() {
-        return fullName;
+        return name + ' ' + lastName;
     }
 
-    public RegisterUserDto setFullName(String fullName) {
-        this.fullName = fullName;
+    public String getName() {
+        return name;
+    }
+
+    public RegisterUserDto setName(String name) {
+        this.name = name;
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "RegisterUserDto{"
-                + "email='" + email + '\''
-                + ", password='" + password + '\''
-                + ", fullName='" + fullName + '\''
-                + '}';
+    public String getLastName() {
+        return lastName;
+    }
+
+    public RegisterUserDto setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public String getMobileNum() {
+        return mobileNum;
+    }
+
+    public RegisterUserDto setMobileNum(String mobileNum) {
+        this.mobileNum = mobileNum;
+        return this;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public RegisterUserDto setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+        return this;
     }
 }

@@ -20,32 +20,33 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(
-            UserRepository userRepository,
-            AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder
-    ) {
+    public AuthenticationService(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User signup(RegisterUserDto input) {
-        var user = new User()
-                .setFullName(input.getFullName())
-                .setEmail(input.getEmail())
-                .setPassword(passwordEncoder.encode(input.getPassword()));
+        var user = new User();
+        var name = input.getName();
+        var email = input.getEmail();
+        var password = input.getPassword();
+        var lastName = input.getLastName();
+        var birthDate = input.getBirthDate();
+        var mobileNum = input.getMobileNum();
 
-        return userRepository.save(user);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setLastName(lastName);
+        user.setBirthDate(birthDate);
+        user.setMobileNum(mobileNum);
+
+        return userRepository.save((User) user);
     }
 
     public User authenticate(LoginUserDto input) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
-                        input.getPassword()
-                )
-        );
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(input.getEmail(), input.getPassword()));
 
         return userRepository.findByEmail(input.getEmail()).orElseThrow();
     }
