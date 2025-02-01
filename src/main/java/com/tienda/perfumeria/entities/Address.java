@@ -6,20 +6,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
-@Entity
 @Table(name = "address")
-public class Address {
-
+@Entity
+public class Address implements Serializable {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer id;
 
-    @Column(name = "street_address", nullable = false)
+    @Column(nullable = false)
     private String streetAddress;
 
-    @Column(name = "street_number", nullable = false)
+    @Column(nullable = false)
     private String streetNumber;
 
     @Column(nullable = false)

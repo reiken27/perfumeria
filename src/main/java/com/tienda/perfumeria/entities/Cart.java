@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Cart {
@@ -26,8 +28,9 @@ public class Cart {
     @Column(nullable = false)
     private double total;
 
-    @Column(nullable = false)
-    private List<CartProduct> products;
+    @JoinColumn
+    @ManyToOne
+    private CartProduct products;
 
     @Column(nullable = false)
     private Address address;

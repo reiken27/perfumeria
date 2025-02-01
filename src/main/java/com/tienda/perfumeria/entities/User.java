@@ -14,6 +14,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Table(name = "users")
@@ -38,11 +41,12 @@ public class User implements UserDetails {
     private String mobileNum;
 
     //credit card
-    @Column(nullable = false)
+    @JoinColumn
+    @OneToOne
     private CreditCard[] creditCard;
 
-    @Column(nullable = true)
-    private Address[] address;
+    @PrimaryKeyJoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
 
     @Column(nullable = true)
     private String[] orders;
@@ -70,10 +74,6 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return this.email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -209,11 +209,11 @@ public class User implements UserDetails {
         this.creditCard = creditCard;
     }
 
-    public Address[] getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address[] address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
