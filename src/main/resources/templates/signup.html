@@ -2,21 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Registro</title>
+    <title>Perfumeria</title>  
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
       async function register(event) {
         event.preventDefault(); // Evita recargar la página
 
-        const fullName = document.getElementById("fullName").value;
+        const name = document.getElementById("name").value;
+        const lastName = document.getElementById("lastName").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-
+        const birthDate = document.getElementById("birthDate").value;
+        const mobileNum = document.getElementById("mobileNum").value;
+        console.log(name, lastName, email, password, birthDate, mobileNum);
         const response = await fetch("/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ fullName, email, password }),
+          body: JSON.stringify({email, name, lastName, password, birthDate, mobileNum}),
         });
 
         if (response.ok) {
@@ -28,12 +35,34 @@
         }
       }
     </script>
+    
   </head>
   <body>
+    <header>
+      <div class="menu-toggle">
+          <button id="DarkMode" class="mode-toggle">
+              <i id="modeIcon" class="fas fa-sun"></i> <!-- Icono de sol por defecto -->
+          </button>
+          <h1>Perfumeria</h1>
+          <span>☰</span>
+      </div>
+      <nav>
+          <ul class="menu">
+              <li><a th:href="@{/}">Inicio</a></li>
+              <li><a th:href="@{/signup}">Registro</a></li>
+              <li><a th:href="@{/login}">Login</a></li>
+          </ul>
+      </nav>
+  </header>        
+  <main class="main-login">
+    <div class="login-container">
     <h2>Registro de Usuario</h2>
     <form onsubmit="register(event)">
-      <label for="fullName">Nombre Completo:</label>
-      <input type="text" id="fullName" required />
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" required />
+
+      <label for="lastName">Apellido:</label>
+      <input type="text" id="lastName" required />
 
       <label for="email">Email:</label>
       <input type="email" id="email" required />
@@ -41,7 +70,20 @@
       <label for="password">Contraseña:</label>
       <input type="password" id="password" required />
 
+      <label for="birthDate">Fecha de nacimiento:</label>
+      <input type="date" id="birthDate" required />
+
+      <label for="mobileNum">Numero de teléfono:</label>
+      <input type="text" id="mobileNum" required />
+
       <button type="submit">Registrarse</button>
     </form>
+  </main>
+  <footer>
+      <p>&copy; 2024 Todos los derechos reservados. <a href="#">Política de privacidad</a></p>
+      <p>Síguenos en <a id="Facebook" href="#">Facebook</a>| <a href="#">Instagram</a> | <a href="#">Twitter</a></p>
+  </footer>
+
+<script th:src="@{/js/main.js}"></script>
   </body>
 </html>

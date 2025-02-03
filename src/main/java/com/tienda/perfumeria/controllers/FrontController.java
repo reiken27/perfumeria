@@ -12,4 +12,14 @@ public class FrontController {
     public String index() {
         return "index";
     }
+	@GetMapping("login")
+	public String showLoginForm() {
+		return "login";
+	}
+    
+	@GetMapping("signup")
+	public String showSignupForm() {
+		return "signup"; // Renderiza signup.html
+	}
+
 }

@@ -35,11 +35,6 @@ public class AuthenticationController {
 		return ResponseEntity.ok(registeredUser);
 	}
 
-	@GetMapping("/signup")
-	public String showSignupForm() {
-		return "signup"; // Renderiza signup.html
-	}
-
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> authenticate(@RequestParam String email, @RequestParam String password, HttpServletResponse response) { // Agregar HttpServletResponse para manejar cookies
 		LoginUserDto loginUserDto = new LoginUserDto().setEmail(email).setPassword(password);
@@ -56,11 +51,6 @@ public class AuthenticationController {
 		LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
 
 		return ResponseEntity.ok(loginResponse);
-	}
-
-	@GetMapping("/login")
-	public String showLoginForm() {
-		return "login";
 	}
 
 	@GetMapping("/logout")

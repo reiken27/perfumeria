@@ -1,12 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <favicon href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <p>Este es el index</p>
-  </body>
+<html lang="es-AR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfumeria</title>  
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="menu-toggle">
+            <button id="DarkMode" class="mode-toggle">
+                <i id="modeIcon" class="fas fa-sun"></i> <!-- Icono de sol por defecto -->
+            </button>
+            <h1>Perfumeria</h1>
+            <span>☰</span>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li><a th:href="@{/signup}">Registro</a></li>
+                <li><a th:href="@{/login}">Login</a></li>
+            </ul>
+        </nav>
+    </header>        
+    <main>
+        <h2>Este es el index</h2>
+    <footer>
+        <p>&copy; 2024 Todos los derechos reservados. <a href="#">Política de privacidad</a></p>
+        <p>Síguenos en <a id="Facebook" href="#">Facebook</a>| <a href="#">Instagram</a> | <a href="#">Twitter</a></p>
+    </footer>
+</main>
+    <script th:src="@{/js/main.js}"></script>
+</body>
 </html>

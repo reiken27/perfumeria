@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String username;
 
     @Column(nullable = false)
@@ -60,7 +60,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date birthDate;
 
     @CreationTimestamp
@@ -76,6 +76,9 @@ public class User implements UserDetails {
         return this.email;
     }
 
+    public void setUsername() {
+        this.username = this.email;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
