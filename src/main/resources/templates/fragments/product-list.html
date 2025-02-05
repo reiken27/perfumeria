@@ -1,0 +1,20 @@
+<th:block th:each="product : ${products}">
+    <article>
+        <a href="pagos.html">
+            <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
+            <h2 th:text="${product.name}"></h2>
+            <p th:text="${product.description}"></p>
+            <p th:text="'$' + ${product.price}"></p>
+            <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
+
+            <fieldset>
+                <legend>Elegí un tamaño</legend>
+                <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
+                <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+                
+                <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
+                <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+            </fieldset>
+        </a>
+    </article>
+</th:block>

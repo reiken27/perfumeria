@@ -1,5 +1,8 @@
 package com.tienda.perfumeria.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -7,9 +10,6 @@ import com.tienda.perfumeria.entities.Category;
 import com.tienda.perfumeria.entities.Product;
 import com.tienda.perfumeria.repositories.ProductRepository;
 import com.tienda.perfumeria.utils.ProductSpecification;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -44,6 +44,10 @@ public class ProductService {
                 .and(ProductSpecification.hasPriceBetween(minPrice, maxPrice));
 
         return productRepository.findAll(spec);
+    }
+
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
     }
 
     // Buscar por ID

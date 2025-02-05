@@ -1,5 +1,5 @@
 let currentBannerIndex = 0;
-const banners = ["../static/Img/banner.png", "../static/Img/Banner2.png", "../staticImg/banner3.png"];
+const banners = ["/img/banner.png", "/img/Banner2.png", "/img/banner3.png"];
 const bannerImg = document.getElementById("banner-img");
 
 function changeBanner(direction) {

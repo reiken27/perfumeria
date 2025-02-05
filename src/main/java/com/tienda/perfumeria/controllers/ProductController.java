@@ -3,10 +3,10 @@ package com.tienda.perfumeria.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import com.tienda.perfumeria.entities.Category;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.perfumeria.entities.Product;
 import com.tienda.perfumeria.services.ProductService;
 
 @RequestMapping("/products")
-@RestController
+@Controller
 public class ProductController {
+
     private final ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -41,11 +41,13 @@ public class ProductController {
 
         return products.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(products);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
         Optional<Product> product = productService.findById(id);
         return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     // Crear un producto
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
@@ -77,4 +79,12 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/productos")
+    public String getAllProducts(Model model) {
+        List<Product> products = productService.findAllProducts();
+        System.out.println("Productos: " + products.size() + "");
+        model.addAttribute("products", products);
+        return "./fragments/product-list";
     }
+}
