@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -60,7 +61,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
+    @DateTimeFormat
+    @Column(nullable = false)
     private Date birthDate;
 
     @CreationTimestamp
@@ -76,8 +78,8 @@ public class User implements UserDetails {
         return this.email;
     }
 
-    public void setUsername() {
-        this.username = this.email;
+    public void setUsername(String username) {
+        this.username = username;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -41,6 +41,7 @@ public class AuthenticationService {
         user.setLastName(lastName);
         user.setBirthDate(birthDate);
         user.setMobileNum(mobileNum);
+        user.setUsername(email);
 
         return userRepository.save((User) user);
     }
