@@ -1,268 +1,461 @@
-/* Menú fijo en la parte superior */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    align-items: center;
-    background: #006D77;
-    color: #fff;
-    z-index: 1000; /* Para asegurarse de que el header quede por encima de otros elementos */
-    padding: 1rem;
-    transition: top 0.3s ease; /* Transición suave para cuando se mueva */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Cuando el header no esté al principio de la página (después de hacer scroll) */
-header.scrolled {
-    top: -60px; /* Desplaza el header fuera de la vista */
-}
-
-/* Ajustar el espacio debajo del header para evitar que el contenido quede cubierto */
 body {
-    padding-top: 60px; /* Asegúrate de que haya espacio suficiente */
-    margin: 0;  /* Elimina márgenes */
+  font-family: 'Raleway', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    text-align: center;
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  padding: 10px 20px;
+  margin-top: 20px;
 }
 
-/* Menú principal */
-.menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: fixed;
-    top: 3.6rem;
-    right: -100%; /* Oculto fuera de la pantalla */
-    width: 250px;
-    height: auto;
-    background: #006D77;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: right 0.3s ease;
-    box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.3);
+.header-left,
+.header-center,
+.header-right {
+  display: flex;
+  align-items: center;
 }
 
-.menu.open {
-    right: 0; /* Despliega el menú */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.menu li {
-    margin: 0.5rem 0;
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 45px;
+  font-weight: 300;
+  line-height: 1;
 }
 
-.menu a {
-    text-decoration: none;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    display: block;
-    font-size: 1.2rem;
+.header-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
 }
 
-.menu a:hover {
-    background: #83C5BE;
-    color: #000;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+  max-width: 400px;
+  flex-grow: 1;
+  margin: 0 auto;
 }
 
-/* Botón del menú */
-.menu-toggle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    background: #006D77;
-    color: #fff;
-    padding: 1rem;
-    font-size: 1.2rem;
-    width: 100%;
-    height: 5vh;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 1100;
+.search-bar input[type="search"] {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 20px;
 }
 
-.menu-toggle span {
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem; /* Añade relleno para que sea fácil de clicar */
-    margin-right: 10px;
-    cursor: pointer; /* Cambia el cursor al de una mano */
-    display: inline-block; /* Asegura que actúe como un elemento en línea con tamaño */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: all 0.3s ease; /* Animación para cambios de estilo */
+.search-bar span.material-symbols-outlined {
+  color: #666;
+  cursor: pointer;
+  margin-left: 10px;
 }
-.menu-toggle span:hover {
-    background-color: #2E2E2E;
-    color: #83C5BE; /* Cambia el color del texto */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Añade una sombra para resaltar */
-}
-/* Hero */
-.hero {
-    text-align: center;
-    height: 60vh;
-    background: url('/static/img/placeholder.jpg') no-repeat center center/ cover;
-    color: #000;
-    padding: 5rem 2rem;
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  padding-right: 20px;
+  gap: 20px; /* Espacio entre flecha e íconos */
 }
 
-.hero h2 {
-    font-size: 2.5rem;
+.arrow-icon {
+  width: 100px; /* Tamaño más visible */
+  height: auto; /* Apunta horizontalmente hacia los íconos */
+  margin-right: 10px; /* Separación de la flecha respecto al carrito */
 }
 
-.hero p {
-    font-size: 1.2rem;
+
+.icon {
+  font-size: 32px; /* Aumenta el tamaño de los íconos */
+  color: #333;
 }
 
-.hero a {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background: #fff;
-    color: #006D77;
-    text-decoration: none;
-    border-radius: 5px;
+.header-right a {
+  text-decoration: none;
 }
 
-/* Secciones */
-.section {
-    padding: 2rem;
-    text-align: center;
+
+nav {
+  padding: 10px;
+  background-color: transparent; /* Sin fondo */
+  margin-top: 30px;
+  max-width: 1000px; /* Ajusta el valor según lo necesites */
+  margin: 20px auto; /* Centra el nav en la página */
 }
 
-.section h3 {
-    margin-bottom: 1.5rem;
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
 }
 
-/* Cards */
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+nav li {
+  margin: 0 10px;
 }
 
-.card {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 5px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+nav a {
+  color: #333; 
+  text-decoration: none;
+  padding: 8px 70px; 
+  background-color: #f4d0e2da; 
+  border-radius: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
-.card a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    transition: color 0.3s ease;
-    display: block;
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 18px;
+nav a:hover {
+  background-color: #ffb3d9; 
+  border-color: #ff66b2;
 }
 
-.card a:hover {
-    color: #007bff;
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
 }
 
-.card img {
-    width: 100%;
-    border-radius: 5px;
+.banner-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-/* Footer */
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+.banner-img {
+  width: 100%; /* Se ajusta al 100% del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+/* Estilos para la sección principal */
+.contenedor-principal {
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* Tres partes para el main y una para el aside */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Sección principal de perfumes */
+main {
+  grid-column: 1; /* Ocupa la primera columna */
+}
+
+/* Estilos para la sección de perfumes */
+section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas para los perfumes */
+  gap: 20px;
+}
+
+/* Estilos para los artículos de perfumes */
+section article {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+}
+
+section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+section h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #444;
+}
+
+section p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #888;
+}
+
+/* Estilos del fieldset de cada perfume */
+section fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+section legend {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+section label {
+  margin-right: 10px;
+}
+
+
+article {
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: none; /* Eliminamos la sombra para evitar líneas */
+  text-align: center; /* Centra el contenido dentro de los artículos */
+}
+
+article img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+article h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+article p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+/* Lista de perfumes recomendados */
+.recomendados-aside {
+  background-color: #f4d0e2da; /* Fondo rosita suave */
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recomendados-titulo {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  color: #444;
+}
+
+.recomendado-item {
+  display: flex; /* Flexbox para alinear imagen y texto */
+  gap: 10px; /* Espacio entre la imagen y el texto */
+  align-items: center; /* Centra verticalmente el contenido */
+  text-align: left; /* Centra el texto en la dirección de la fila */
+  border: none; /* Elimina el borde */
+  box-shadow: none; /* Elimina la sombra */
+}
+
+.recomendado-item img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.recomendado-item div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea el contenido hacia la izquierda */
+  justify-content: center;
+}
+
+.recomendado-item h2 {
+  font-size: 1.5rem;
+  color: #444;
+  margin: 5px 0;
+  text-align: center; /* Centra el título */
+}
+
+.recomendado-item p {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+
+
+.about-contact-container {
+  margin-top: 60px;
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  background-color: white; /* Fondo blanco para el contenedor principal */
+  border-radius: 30px;
+  justify-content: space-between;
+  align-items: stretch; 
+  flex-wrap: wrap;
+}
+
+.about-section {
+  flex-grow: 1;
+  min-width: 300px;
+  max-width: 65%;
+  background: linear-gradient(to right, #fff8b1, #f9bbff); /* Fondo degradado para la sección */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+
+.about-section h2 {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 30px 0;
+}
+
+.about-section h3 {
+  text-align: center;
+  font-size: 1.5em; 
+  margin: 30px 0;
+}
+
+.about-section p {
+  font-size: 1.1em; 
+  line-height: 1.6; 
+  overflow: auto;
+  font-weight: bold;
+}
+
+
+
+.contact-section {
+  flex-grow: 0.5;
+  min-width: 250px;
+  max-width: 35%;
+  padding: 20px; 
+  border-radius: 20px; 
+}
+
+.contact-title {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: relative; /* Permite el desplazamiento con top */
+  top: -15px; /* Desplaza hacia arriba */
+  display: block;
+  padding: 15px 40px;
+  border: 1px solid black;
+  border-radius: 50px;
+  width: fit-content;
+  margin: 0 auto; /* Mantiene el centrado horizontal */
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; 
+  width: 90%; 
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  margin: 20px 0; 
+}
+
+.contact-list img, 
+.contact-list span {
+  margin-right: 15px; 
+  width: 35px; 
+  height: 35px; 
+}
+
+.contact-list span.material-symbols-outlined {
+  font-size: 35px; 
+}
+
+.contact-list p {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.contact-list h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+
+.contact-list h2 {
+  font-size: 2em; 
+  text-align: center;
+}
+
+.contact-section li img[alt="Logo de Parfumes c'est bon"] {
+  width: 100px;  
+  height: auto;  
+}
+
+.contact-section li:last-child {
+  position: relative;
+  top: 30px;  
+}
+
+
 footer {
-    background: #5E6472;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
+  background: linear-gradient(to right, #fff8b1, #f9bbff); 
+  border-radius: 40px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 
-/* Estilo del modo oscuro */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-body.dark-mode header {
-    background: #1E1E1E;
-}
-
-body.dark-mode .menu a {
-    color: #83C5BE;
-}
-
-body.dark-mode .menu a:hover {
-    color: #ffffff;
-}
-
-body.dark-mode .menu-toggle {
-    background: #1E1E1E;
-    color: #83C5BE;
-}
-
-body.dark-mode .card {
-    background-color: #1E1E1E;
-    color: #ffffff;
-    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode footer {
-    background: #1E1E1E;
-    color: #83C5BE;
-}
-body.dark-mode .menu {
-    background: #1E1E1E;
-}
-
-/* Estilo del botón redondo */
-#DarkMode {
-    background-color: #006D77; /* Color del fondo */
-    color: white;
-    border: none;
-    border-radius: 50%; /* Hace que el botón sea redondo */
-    width: 40px; /* Tamaño del botón */
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.3s ease;
-}
-
-body.dark-mode #DarkMode {
-    background-color: #1E1E1E; /* Cambia el color de fondo al modo oscuro */
-    color: #006D77;
-}
-
-#DarkMode:hover {
-    background-color: #00545b; /* Cambio de color al pasar el ratón */
-}
-body.dark-mode #DarkMode:hover {
-    background-color: #2e2e2e; /* Cambia el color de fondo al modo oscuro */
-    color: #006D77;
-}
-
-/* Estilo del icono */
-#modeIcon {
-    font-size: 18px; /* Tamaño del icono */
-}
-body.dark-mode .card a{
-    color: #006D77;
-}
-body.dark-mode .card a:hover{
-    color: #00545b;
-}
-#tittle{
-    flex: auto;
-    transform: translateX(10%);
-}
-#welcome{
-    padding:inherit;
-}
