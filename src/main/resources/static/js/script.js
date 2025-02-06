@@ -11,3 +11,16 @@ function changeBanner(direction) {
     }
     bannerImg.src = banners[currentBannerIndex];
 }
+
+
+document.addEventListener("htmx:afterRequest", function (event) {
+    let userInfoDiv = document.getElementById("user-info");
+
+    if (event.detail.xhr.status === 200) {
+        // Si la respuesta es 200 (usuario autenticado)
+        let response = JSON.parse(event.detail.xhr.responseText);
+        userInfoDiv.innerHTML = '<a href="/users/me">Perfil</a>';
+    } else if (event.detail.xhr.status === 403) {
+        userInfoDiv.innerHTML = '<a href="/login">Login</a>';
+    }
+});

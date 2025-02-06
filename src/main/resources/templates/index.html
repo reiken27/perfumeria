@@ -16,6 +16,7 @@
 
     <!-- Encabezado -->
     <header>
+
         <div class="header-left">
           <img src="/img/Logo.png" alt="Logo" title="Logo Parfumes c'est bon" width="130px">
           <div class="brand-text">
@@ -33,8 +34,12 @@
       
         <div class="header-right">
             <img src="/img/Flecha.png" alt="Flecha" title="flecha" class="arrow-icon">
-            <a href="pagos.html"><span class="material-symbols-outlined icon">shopping_cart</span></a>
-            <a href="login.html"><span class="material-symbols-outlined icon">account_circle</span></a>
+            <a href="/cart"><span class="material-symbols-outlined icon">shopping_cart</span></a>
+            <a href="/login"><span class="material-symbols-outlined icon">account_circle</span></a>
+                    <div id="user-info" hx-get="/users/me" hx-trigger="load" hx-target="#user-info">
+            Emiliano Correa
+            Login
+        </div>
           </div>
           
       </header>
@@ -57,6 +62,7 @@
             <img src="/img/banner.png" alt="Banner 1" class="banner-img" id="banner-img">
         </div>
         <button class="arrow-btn right-arrow" onclick="changeBanner(1)">&#8594;</button>
+
     </div>
 
     <!-- Sección principal -->

@@ -7,19 +7,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 @Controller
 public class FrontController {
+
     @GetMapping("")
-	public String index() {
-    	return "index";
+    public String index() {
+        return "index";
     }
-	
-	@GetMapping("login")
-	public String showLoginForm() {
-		return "login";
-	}
-    
-	@GetMapping("signup")
-	public String showSignupForm() {
-		return "signup"; // Renderiza signup.html
-	}
+
+    @GetMapping("login")
+    public String showLoginForm() {
+        return "login";
+    }
+
+    @GetMapping("signup")
+    public String showSignupForm() {
+        return "signup"; // Renderiza signup.html
+    }
+
+    @GetMapping("carrito")
+    public String showCart() {
+        return "carrito";
+    }
 
 }
