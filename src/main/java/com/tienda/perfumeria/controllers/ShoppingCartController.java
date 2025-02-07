@@ -46,7 +46,6 @@ public class ShoppingCartController {
             cart = new ArrayList<>();
             session.setAttribute(CART_SESSION_KEY, cart);
         }
-
         Integer productId = cartItemDto.getProductId();
         Integer quantity = cartItemDto.getQuantity();
 
@@ -67,8 +66,10 @@ public class ShoppingCartController {
         List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
         if (cart != null) {
             cart.removeIf(item -> item.getProductId().equals(productId));
+            session.setAttribute(CART_SESSION_KEY, cart);
         }
         return ResponseEntity.ok(cart);
+        
     }
 
     @DeleteMapping("/clear")

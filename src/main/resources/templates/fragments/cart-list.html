@@ -1,0 +1,32 @@
+<th:block th:if="${cart != null and not #lists.isEmpty(cart)}">
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="product : ${cart}">
+                <tr>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td th:text="'$' + ${product.price}"></td>
+                    <td>
+                        <button 
+                            class="btn-delete" 
+                            onclick="removeFromCart('${product.productId}')">
+                            Eliminar
+                        </button>
+                    </td>                               
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</th:block>
+
+<th:block th:unless="${cart != null and not #lists.isEmpty(cart)}">
+    <p>El carrito está vacío.</p>
+</th:block>

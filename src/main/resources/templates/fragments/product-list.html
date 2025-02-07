@@ -15,6 +15,54 @@
                 <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
                 <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
             </fieldset>
-        </a>
-    </article>
+            
+            <form class="add-to-cart-form">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="number" name="quantity" value="1" min="1" max="100">
+                <button type="submit">Comprar</button>
+            </form>
+        </article>
 </th:block>
+
+<div id="cart-container"></div>
+
+<script>
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', async event => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const jsonData = {};
+
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            try {
+                const response = await fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(jsonData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.querySelector("#cart-container").innerHTML = `
+                        <p>Producto agregado al carrito: ${result.productName || 'Producto'}</p>
+                    `;
+                } else {
+                    document.querySelector("#cart-container").innerHTML = `
+                        <p>Error al agregar el producto</p>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error en la solicitud:", error);
+                document.querySelector("#cart-container").innerHTML = `
+                    <p>Error en la solicitud</p>
+                `;
+            }
+        });
+    });
+</script>
