@@ -42,18 +42,38 @@
 
     <main>
         <section id="cart-container">
-            <div id="cart-items"></div>
-            <button onclick="clearCart()">Vaciar Carrito</button>
-            <button onclick="checkout()">Finalizar Compra</button>
+            <div id="cart-items">
+                <div class="cart-header">
+                    <span class="header-item">Producto</span>
+                    <span class="header-item">Cantidad</span>
+                    <span class="header-item">Precio</span>
+                </div>
+                <div class="cart-product">
+                    <span>Producto 1</span>
+                    <span>2</span>
+                    <span>$100</span>
+                </div>
+                <div class="cart-product">
+                    <span>Producto 2</span>
+                    <span>1</span>
+                    <span>$200</span>
+                </div>
+            </div>
+            <button onclick="clearCart()" class="buy-button">Vaciar Carrito</button>
+
         </section>
+        
 
         <aside>
-            <h3>Resumen de Compra</h3>
+            <h3 class="summary-header">Resumen de Compra</h3>
             <div id="product-summary-list"></div>
             <hr>
             <p class="summary-item" id="subtotal">Subtotal: $0</p>
             <p class="summary-item" id="total">Total: $0</p>
+            <button id="buy-button" onclick="checkout()" class="buy-button">Comprar</button>
         </aside>
+        
+        
     </main>
 
     <footer>
@@ -62,54 +82,75 @@
 
     <script>
         async function loadCart() {
-            try {
-                const response = await fetch("/cart");
-                const cartItems = await response.json();
-    
-                const cartContainer = document.getElementById("cart-items");
-                const summaryList = document.getElementById("product-summary-list");
-    
-                cartContainer.innerHTML = "";
-                summaryList.innerHTML = "";
-                let subtotal = 0;
-    
-                if (!cartItems || cartItems.length === 0) {
-                    cartContainer.textContent = "El carrito está vacío.";
-                    updateSummary(0, 0);
-                    return;
-                }
-    
-                cartItems.forEach(item => {
-                    const itemElement = document.createElement("div");
-                    itemElement.classList.add("cart-item");
-    
-                    const productInfo = document.createElement("span");
-                    productInfo.textContent = `${item.productName} - Cantidad: ${item.quantity} - $${item.price}`;
-    
-                    const removeButton = document.createElement("button");
-                    removeButton.textContent = "Eliminar";
-                    removeButton.classList.add("remove-button");
-                    removeButton.onclick = () => removeFromCart(item.productId);
-    
-                    itemElement.appendChild(productInfo);
-                    itemElement.appendChild(removeButton);
-                    cartContainer.appendChild(itemElement);
-    
-                    const summaryItem = document.createElement("div");
-                    summaryItem.classList.add("product-summary");
-                    summaryItem.textContent = `${item.productName} x${item.quantity} ($${item.price.toFixed(2)} c/u)`;
-                    summaryList.appendChild(summaryItem);
-    
-                    subtotal += item.quantity * item.price;
-                });
-    
-                const total = subtotal;
-                updateSummary(subtotal, total);
-            } catch (error) {
-                console.error("Error al cargar el carrito:", error);
-                alert("No se pudo cargar el carrito. Inténtalo de nuevo.");
-            }
+    try {
+        const response = await fetch("/cart");
+        if (!response.ok) {
+            throw new Error("Error al cargar el carrito");
         }
+        const cartItems = await response.json();
+
+        const cartContainer = document.getElementById("cart-items");
+        const summaryList = document.getElementById("product-summary-list");
+
+        cartContainer.innerHTML = "";
+        summaryList.innerHTML = "";
+        let subtotal = 0;
+
+        if (!cartItems || cartItems.length === 0) {
+            cartContainer.textContent = "El carrito está vacío.";
+            updateSummary(0, 0);
+            return;
+        }
+
+        // Estructura del carrito
+        const headerRow = document.createElement("div");
+        headerRow.classList.add("cart-header");
+        headerRow.innerHTML = `
+            <div>Producto</div>
+            <div>Cantidad</div>
+            <div>Precio</div>
+            <div>Acción</div>
+        `;
+        cartContainer.appendChild(headerRow);
+
+        cartItems.forEach(item => {
+            const itemRow = document.createElement("div");
+            itemRow.classList.add("cart-row");
+
+            itemRow.innerHTML = `
+                <div>${item.productName}</div>
+                <div>${item.quantity}</div>
+                <div>$${item.price.toFixed(2)}</div>
+            `;
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Eliminar";
+            removeButton.classList.add("remove-button");
+            removeButton.onclick = () => removeFromCart(item.productId);
+
+            const actionCell = document.createElement("div");
+            actionCell.appendChild(removeButton);
+            itemRow.appendChild(actionCell);
+
+            cartContainer.appendChild(itemRow);
+
+            // Resumen de compra
+            const summaryItem = document.createElement("div");
+            summaryItem.classList.add("product-summary");
+            summaryItem.textContent = `${item.productName} x${item.quantity} ($${item.price.toFixed(2)} c/u)`;
+            summaryList.appendChild(summaryItem);
+
+            subtotal += item.quantity * item.price;
+        });
+
+        const total = subtotal;
+        updateSummary(subtotal, total);
+    } catch (error) {
+        console.error("Error al cargar el carrito:", error);
+        alert("No se pudo cargar el carrito. Inténtalo de nuevo.");
+    }
+}
+
     
         function updateSummary(subtotal, total) {
             document.getElementById("subtotal").textContent = `Subtotal: $${subtotal.toFixed(2)}`;

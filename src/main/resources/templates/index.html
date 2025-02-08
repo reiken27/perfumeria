@@ -10,6 +10,8 @@
     <link rel="icon" href="/img/Logo.ico">
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>    
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+
 </head>
 
 <body>
@@ -87,45 +89,18 @@
         </main>
 
         <!-- Lista de perfumes recomendados -->
-    <aside class="recomendados-aside">
-        <p class="recomendados-titulo">Recomendados</p>
-        <article>
-            <a href="pagos.html" class="recomendado-item">
-                <img src="/img/antoniobanderas.jpg" alt="Perfume Blue Seduction" title="Perfume Blue Seduction" width="120px">
-                <div>
-                    <h2>$15.500</h2>
-                    <p>BLUE SEDUCTION</p>
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="pagos.html" class="recomendado-item">
-                <img src="/img/cocochanel.jpg" alt="Perfume Coco Mademoiselle" title="Perfume Coco Mademoiselle" width="120px">
-                <div>
-                    <h2>$86.700</h2>
-                    <p>COCO MADEMOISELLE</p>
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="pagos.html" class="recomendado-item">
-                <img src="/img/bleuchanel.jpg" alt="Perfume Bleu de Chanel" title="Perfume Bleu de Chanel" width="120px">
-                <div>
-                    <h2>$92.300</h2>
-                    <p>BLEU DE CHANEL</p>
-                </div>
-            </a>
-        </article>
-        <article>
-            <a href="pagos.html" class="recomendado-item">
-                <img src="/img/jeanne.jpg" alt="Perfume Jeanne Arthes Paris" title="Perfume Jeanne Arthes Paris" width="120px">
-                <div>
-                    <h2>$13.900</h2>
-                    <p>JEANNE ARTHES PARIS</p>
-                </div>
-            </a>
-        </article>
-    </aside>
+        <aside class="recomendados-aside">
+            <p class="recomendados-titulo">Recomendados</p>
+        
+            <section id="recomendados-container"
+                hx-get="/products/productos"
+                hx-trigger="load"
+                hx-target="#recomendados-container"
+                hx-swap="innerHTML">
+                <!-- HTMX insertará aquí los productos recomendados -->
+            </section>
+        </aside>
+        
     </div>
 
 

@@ -1,0 +1,9 @@
+
+<th:block th:each="product : ${products}">
+    <article>
+        <a href="pagos.html">
+            <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="120px">
+            <h2 th:text="${product.name}"></h2>
+            <p th:text="'$' + ${product.price}"></p>
+        </article>
+</th:block>
