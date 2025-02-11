@@ -176,61 +176,101 @@ nav a:hover {
 
 
 .banner-img {
-  width: 100%; /* Se ajusta al 100% del contenedor */
-  height: auto; /* Mantiene la proporción de la imagen */
+  width: 100%; 
+  height: auto; 
 }
-/* Estilos para la sección principal */
+/* Contenedor principal */
 .contenedor-principal {
   display: grid;
-  grid-template-columns: 3fr 1fr; /* Tres partes para el main y una para el aside */
+  grid-template-columns: 3fr 1fr;
   gap: 20px;
   padding: 20px;
 }
 
-/* Sección principal de perfumes */
-main {
-  grid-column: 1; /* Ocupa la primera columna */
+/* Sección de perfumes */
+.perfumes-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
 }
 
-/* Estilos para la sección de perfumes */
-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas para los perfumes */
-  gap: 20px;
-}
-
-/* Estilos para los artículos de perfumes */
-section article {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Estilos unificados para los productos */
+.producto {
   display: flex;
   flex-direction: column;
-  text-align: center;
   justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 250px; /* Ajusta el tamaño si es necesario */
+}
+.producto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  width: 50px;
+  min-height: 30px; /* Ajusta este valor */
 }
 
-section img {
+
+.producto h2 {
+  font-size: 1.2rem;
+  margin: 10px 0; /* Ajusta los márgenes */
+}
+
+.producto p {
+  height: 40px;
+  margin: 5px 0; /* Ajusta los márgenes */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+section article {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Hace que todos tengan la misma altura */
+  align-self: stretch; /* Evita alturas diferentes en la grilla */
+}
+
+/* Estilos para imágenes */
+.producto img {
+  height: 150px;
+  object-fit: cover;
+}
+
+
+section article img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-section h2 {
+/* Textos */
+
+section article h2 {
   font-size: 1.2rem;
   margin: 10px 0;
   color: #444;
 }
 
-section p {
+ 
+section article p {
   font-size: 1rem;
   margin: 5px 0;
   color: #888;
 }
 
-/* Estilos del fieldset de cada perfume */
+/* Ajustes en los fieldsets */
 section fieldset {
   border: 1px solid #ccc;
   padding: 10px;
@@ -248,37 +288,19 @@ section label {
 }
 
 
-article {
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: none; /* Eliminamos la sombra para evitar líneas */
-  text-align: center; /* Centra el contenido dentro de los artículos */
-}
-
-article img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-article h2 {
-  font-size: 1.2rem;
-  margin: 10px 0;
-}
-
-article p {
-  font-size: 0.9rem;
-  margin: 5px 0;
-}
-
 /* Lista de perfumes recomendados */
 .recomendados-aside {
-  background-color: #f4d0e2da; /* Fondo rosita suave */
+  background-color: #f4d0e2da;
   padding: 20px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+
+ /* Ajusta según sea necesario */
+  overflow: auto;  /* Permite que se desplace si el contenido es demasiado grande */
 }
+
 
 .recomendados-titulo {
   font-size: 1.5rem;
@@ -289,24 +311,27 @@ article p {
 }
 
 .recomendado-item {
-  display: flex; /* Flexbox para alinear imagen y texto */
-  gap: 10px; /* Espacio entre la imagen y el texto */
-  align-items: center; /* Centra verticalmente el contenido */
-  text-align: left; /* Centra el texto en la dirección de la fila */
-  border: none; /* Elimina el borde */
-  box-shadow: none; /* Elimina la sombra */
+  display: flex; 
+  gap: 10px; 
+  align-items: center; 
+  text-align: left; 
+  border: none; 
+  box-shadow: none; 
+  margin-bottom: 10px;
 }
 
 .recomendado-item img {
-  width: 120px;
+  width: 100%;  /* Usa el 100% del contenedor */
   height: auto;
+  max-width: 120px;  /* Ajusta el tamaño máximo según lo necesites */
   border-radius: 8px;
 }
+
 
 .recomendado-item div {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinea el contenido hacia la izquierda */
+  align-items: flex-start; 
   justify-content: center;
 }
 
@@ -314,7 +339,7 @@ article p {
   font-size: 1.5rem;
   color: #444;
   margin: 5px 0;
-  text-align: center; /* Centra el título */
+  text-align: center; 
 }
 
 .recomendado-item p {
@@ -329,7 +354,7 @@ article p {
   display: flex;
   gap: 10px;
   padding: 20px;
-  background-color: white; /* Fondo blanco para el contenedor principal */
+  background-color: white; 
   border-radius: 30px;
   justify-content: space-between;
   align-items: stretch; 

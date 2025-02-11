@@ -93,10 +93,11 @@
             <p class="recomendados-titulo">Recomendados</p>
         
             <section id="recomendados-container"
-                hx-get="/products/productos"
+                hx-get="/products/recomendados"
                 hx-trigger="load"
                 hx-target="#recomendados-container"
-                hx-swap="innerHTML">
+                hx-swap="innerHTML"
+                hx-preserve="true">
                 <!-- HTMX insertará aquí los productos recomendados -->
             </section>
         </aside>

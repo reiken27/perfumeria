@@ -87,4 +87,12 @@ public class ProductController {
         model.addAttribute("products", products);
         return "./fragments/product-list";
     }
+
+    @GetMapping("/recomendados")
+    public String findRandomProducts(Model model) {
+        List<Product> products = productService.findRandomProducts(); 
+        System.out.println("Productos recomendados: " + products.size());
+        model.addAttribute("products", products);
+        return "./fragments/recomendados-list"; 
+    }
 }

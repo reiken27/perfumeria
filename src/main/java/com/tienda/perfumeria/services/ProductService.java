@@ -1,5 +1,6 @@
 package com.tienda.perfumeria.services;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,6 @@ import com.tienda.perfumeria.entities.Category;
 import com.tienda.perfumeria.entities.Product;
 import com.tienda.perfumeria.repositories.ProductRepository;
 import com.tienda.perfumeria.utils.ProductSpecification;
-
 @Service
 public class ProductService {
 
@@ -50,8 +50,34 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
+
     // Buscar por ID
     public Optional<Product> findById(int id) {
         return productRepository.findById(id);
     }
+
+    public List<Product> findRandomProducts() {
+        long count = productRepository.count();
+        System.out.println("Total de productos en la base de datos: " + count);
+    
+        // Si hay menos de 4 productos, devolver todos los productos
+        if (count <= 4) {
+            return productRepository.findAll();
+        }
+    
+        // Obtener todos los productos
+        List<Product> allProducts = productRepository.findAll();
+    
+        // Mezclar los productos aleatoriamente
+        Collections.shuffle(allProducts);
+    
+        // Retornar los primeros 4 productos aleatorios
+        return allProducts.subList(0, 4);
+    }
+    
+    
+    
+    
+    
 }
