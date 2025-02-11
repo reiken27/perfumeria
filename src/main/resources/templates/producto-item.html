@@ -2,29 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
   <title>Product</title>
-  <link rel="stylesheet" href="/css/item.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="icon" href="/Img/Logo.ico">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<section id="product-container"
-    class="perfumes-section"
-    hx-trigger="load"
-    hx-target="#product-container"
-    hx-swap="innerHTML">
-</section>
+      <!-- Encabezado -->
+      <header>
+
+        <div class="header-left">
+          <img src="/Img/Logo.png" alt="Logo" title="Logo Parfumes c'est bon" width="130px">
+          <div class="brand-text">
+            <span>Parfumes</span>
+            <span>c'est bon</span>
+          </div>
+        </div>
+      
+        <div class="header-center">
+          <div class="search-bar">
+            <input type="search" title="Buscar" placeholder="Buscar">
+            <span class="material-symbols-outlined">search</span>
+          </div>
+        </div>
+      
+        <div class="header-right">
+            <img src="/Img/Flecha.png" alt="Flecha" title="flecha" class="arrow-icon">
+            <a href="/carrito"><span class="material-symbols-outlined icon">shopping_cart</span></a>
+            <a href="/login"><span class="material-symbols-outlined icon">account_circle</span></a>
+        </div>
+          </div>
+          
+      </header>
+    
+
+    <!-- Navegador -->
+    <nav>
+        <ul>
+            <li><a href="perfumesMujer.html">Mujer</a></li>
+            <li><a href="perfumesHombre.html">Hombre</a></li>
+            <li><a href="bestSellers.html">Best Seller</a></li>
+            <li><a href="promociones.html">Promociones</a></li>          
+        </ul>
+    </nav>
+    <section id="product-page"
+        hx-trigger="load"
+        hx-target="#product-page"
+        hx-swap="innerHTML">
+    </section>
+
 
 <script>
   const urlParts = window.location.pathname.split('/'); // Ejemplo: "/item/5"
   const productId = urlParts[urlParts.length - 1]; // Obtener "5"
   const productUrl = `/products/fragment/${productId}`;
-  document.getElementById("product-container").setAttribute("hx-get", productUrl);
+  document.getElementById("product-page").setAttribute("hx-get", productUrl);
 
-  htmx.trigger("#product-container", "load");
+  htmx.trigger("#product-page", "load");
 </script>
 
+<!-- Pie de página-->
+<footer> 
+  <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
+</footer>
 
 </body>
 </html>

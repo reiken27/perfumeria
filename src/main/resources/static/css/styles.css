@@ -231,13 +231,11 @@ nav a:hover {
 section article {
   background: white;
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; /* Hace que todos tengan la misma altura */
+  height: auto;
   align-self: stretch; /* Evita alturas diferentes en la grilla */
 }
 
@@ -483,4 +481,84 @@ footer {
   text-align: center;
 }
 
+#product-page {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px; /* Espacio entre el nav y el producto */
+}
 
+/* PRODUCTO */
+#product-page .product-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  max-width: 1500px;
+}
+
+/* Imagen del producto */
+#product-page .product-image {
+  width: 500px;
+  height: auto;
+  border-radius: 5px;
+  margin-right: 70px;
+}
+
+/* Información del producto */
+#product-page .product-details {
+  flex: 1;
+}
+
+/* Nombre del producto */
+#product-page .product-details h2 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* Descripción del producto */
+#product-page .product-details p {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* Selección de tamaños */
+#product-page .product-details fieldset {
+  font-size: 35px;
+  border: none;
+  margin: 10px 0;
+}
+
+#product-page .product-details legend {
+  font-weight: bold;
+}
+
+#product-page .product-details label {
+  margin-right: 10px;
+}
+
+/* Precio */
+#product-page .product-price {
+  font-size: 50px;
+  font-weight: bold;
+  color: #e91e63;
+  margin-top: 10px;
+}
+
+/* Botón de compra */
+#product-page .buy-button {
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#product-page .buy-button:hover {
+  background-color: #c2185b;
+}
