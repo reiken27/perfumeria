@@ -1,7 +1,8 @@
 <th:block th:each="product : ${products}">
     <article>
+<a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
             <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
-            <h2 th:text="${product.name}"></h2>
+        </a>            <h2 th:text="${product.name}"></h2>
             <p th:text="${product.description}"></p>
             <p th:text="'$' + ${product.price}"></p>
             <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
