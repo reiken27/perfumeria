@@ -2,6 +2,7 @@ package com.tienda.perfumeria.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/")
@@ -26,6 +27,11 @@ public class FrontController {
     @GetMapping("carrito")
     public String showCart() {
         return "carrito";
+    }
+
+    @GetMapping("item/{id}")
+    public String showProduct(@PathVariable int id) {
+        return "producto-item";
     }
 
 }

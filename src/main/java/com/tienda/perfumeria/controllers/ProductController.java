@@ -90,9 +90,21 @@ public class ProductController {
 
     @GetMapping("/recomendados")
     public String findRandomProducts(Model model) {
-        List<Product> products = productService.findRandomProducts(); 
+        List<Product> products = productService.findRandomProducts();
         System.out.println("Productos recomendados: " + products.size());
         model.addAttribute("products", products);
-        return "./fragments/recomendados-list"; 
+        return "./fragments/recomendados-list";
     }
+
+    @GetMapping("/fragment/{id}")
+    public String getProductFragment(@PathVariable int id, Model model) {
+        Optional<Product> product = productService.findById(id);
+        if (product.isPresent()) {
+            model.addAttribute("product", product.get());
+            return "fragments/product-item :: productItem";
+        } else {
+            return "404";
+        }
+    }
+
 }

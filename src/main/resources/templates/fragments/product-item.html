@@ -1,0 +1,10 @@
+<div th:fragment="productItem" id="product-container">
+    <div class="card">
+        <h2 th:text="${product.name}">Nombre del Producto</h2>
+        <!-- <img th:src="@{'/img/' + ${product.image}}" alt="Imagen de Producto" title="Imagen de Producto" width="120px"> -->
+         <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="120px">
+        <p th:text="${product.description}">Descripción</p>
+        <span th:text="'$' + ${product.price}">Precio</span>
+        <button class="buy-button" hx-post="#" hx-swap="outerHTML">Comprar</button>
+    </div>
+</div>

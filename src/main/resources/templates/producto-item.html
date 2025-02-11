@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  <title>Product</title>
+  <link rel="stylesheet" href="/css/item.css">
+</head>
+<body>
+
+<section id="product-container"
+    class="perfumes-section"
+    hx-trigger="load"
+    hx-target="#product-container"
+    hx-swap="innerHTML">
+</section>
+
+<script>
+  const urlParts = window.location.pathname.split('/'); // Ejemplo: "/item/5"
+  const productId = urlParts[urlParts.length - 1]; // Obtener "5"
+  const productUrl = `/products/fragment/${productId}`;
+  document.getElementById("product-container").setAttribute("hx-get", productUrl);
+
+  htmx.trigger("#product-container", "load");
+</script>
+
+
+</body>
+</html>
