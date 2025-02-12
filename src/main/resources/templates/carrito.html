@@ -190,19 +190,26 @@
     
         async function checkout() {
     try {
-        const response = await fetch("/cart/checkout");
-        if (!response.ok) throw new Error("El carrito está vacío o hubo un error.");
-
+        
+        const response = await fetch("/cart");
         const cartItems = await response.json();
+
+        if (!cartItems || cartItems.length === 0) {
+            alert("El carrito está vacío.");
+            return;
+        }
+
+       
         localStorage.setItem("checkoutCart", JSON.stringify(cartItems));
 
-        window.location.href = "/cart/checkout";
+        window.location.href = "cart/checkout"; 
 
     } catch (error) {
         console.error("Error en checkout:", error);
         alert("No se pudo completar la compra.");
     }
 }
+
 
 
     

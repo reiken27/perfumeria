@@ -144,8 +144,8 @@ body {
 h1{
     margin:20px;
   font-size: 1.5em;
-  font-weight: bold; /* Permite el desplazamiento con top */
-  top: -15px; /* Desplaza hacia arriba */
+  font-weight: bold; 
+  top: -15px; 
   display: block;
   padding: 15px 40px;
   border: 2px solid #bb7d9cda;
@@ -177,20 +177,21 @@ main {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    margin-left: 25px;
     width: 100%;
-    display: block; /* Asegura que el formulario esté en bloque */
+    display: block; 
 }
 
-/* H2 y H3 para los títulos dentro de los formularios */
+
 .form-container h2, .form-container h3 {
     margin-bottom: 15px;
 }
 
-/* Las secciones dentro de los formularios */
+
 .form-section {
-    display: block; /* Asegura que las secciones se apilen verticalmente */
+    display: block; 
     margin-bottom: 20px;
-    width: 100%; /* Asegura que las secciones ocupen todo el ancho disponible */
+    width: 100%; 
 }
 
 /* Estilo de las etiquetas y entradas */
@@ -202,7 +203,7 @@ main {
 }
 
 .form-section input {
-    width: 100%; /* Asegura que los inputs ocupen todo el ancho */
+    width: 100%; 
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -220,6 +221,7 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-right: 25px;
 }
 
 h2 {

@@ -107,4 +107,18 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/woman")
+    public String getWomenPerfumes(Model model) {
+        List<Product> products = productService.findByFilters(null, null, "WOMEN", null, null); // Filtrar solo por WOMEN
+        model.addAttribute("products", products);
+        return "perfumesMujer"; 
+    }
+
+    @GetMapping("/man")
+        public String getMenPerfumes(Model model) {
+        List<Product> products = productService.findByFilters(null, null, "MEN", null, null); // Filtrar solo por MEN
+        model.addAttribute("products", products);
+        return "perfumesHombre"; 
+    }
+
 }

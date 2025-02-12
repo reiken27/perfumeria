@@ -39,8 +39,7 @@
             <a href="/carrito"><span class="material-symbols-outlined icon">shopping_cart</span></a>
             <a href="/login"><span class="material-symbols-outlined icon">account_circle</span></a>
             <div id="user-info" hx-get="/users/me" hx-trigger="load" hx-target="#user-info">
-            Emiliano Correa
-            Login
+           
         </div>
           </div>
           
@@ -51,8 +50,8 @@
     <!-- Navegador -->
     <nav>
         <ul>
-            <li><a href="perfumesMujer.html">Mujer</a></li>
-            <li><a href="perfumesHombre.html">Hombre</a></li>
+            <li><a th:href="@{/products/woman}">Mujer</a></li>
+            <li><a th:href="@{/products/man}">Hombre</a></li>
             <li><a href="bestSellers.html">Best Seller</a></li>
             <li><a href="promociones.html">Promociones</a></li>          
         </ul>
@@ -83,7 +82,7 @@
                     hx-trigger="load"
                     hx-target="#product-container"
                     hx-swap="innerHTML">
-                    <!-- Aquí HTMX insertará los productos dinámicamente -->
+                    <!--  HTMX  -->
                 <section>
 
         </main>
@@ -98,7 +97,7 @@
                 hx-target="#recomendados-container"
                 hx-swap="innerHTML"
                 hx-preserve="true">
-                <!-- HTMX insertará aquí los productos recomendados -->
+                <!-- HTMX  -->
             </section>
         </aside>
         

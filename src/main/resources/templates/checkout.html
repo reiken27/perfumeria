@@ -27,8 +27,17 @@
     </header>   
 </head>
 <body>
-    <h1>Checkout</h1>
+    
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/productos}">Productos</a></li>
+            <li><a th:href="@{/carrito}">Carrito</a></li>
+        </ul>
+    </nav>
 
+    <h1>Checkout</h1>
+    
     <div >
         <!-- Formulario de datos de la tarjeta y envío -->
         <main>
@@ -102,10 +111,53 @@
     </footer>
 
     <script>
-        function finalizarCompra() {
-            alert("Compra realizada con éxito.");
-            window.location.href = "/";  // Redirige a la página principal tras finalizar
-        }
+        function validarFormulario() {
+
+    const cardNumber = document.getElementById("cardNumber").value;
+    const expiryDate = document.getElementById("expiryDate").value;
+    const cvv = document.getElementById("cvv").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const postalCode = document.getElementById("postalCode").value;
+
+
+    const cardNumberPattern = /^\d{16}$/;
+    if (!cardNumberPattern.test(cardNumber)) {
+        alert("El número de tarjeta debe tener 16 dígitos.");
+        return false;
+    }
+
+
+    const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    if (!expiryPattern.test(expiryDate)) {
+        alert("La fecha de vencimiento debe estar en formato MM/AA.");
+        return false;
+    }
+
+
+    const cvvPattern = /^\d{3}$/;
+    if (!cvvPattern.test(cvv)) {
+        alert("El CVV debe tener 3 dígitos.");
+        return false;
+    }
+
+    if (!address || !city || !postalCode) {
+        alert("Por favor, complete todos los campos de envío.");
+        return false;
+    }
+
+
+    return true;
+}
+
+    function finalizarCompra() {
+
+    if (validarFormulario()) {
+        alert("Compra realizada con éxito.");
+        window.location.href = "/";  
+    }
+}
+
     </script>
 </body>
 </html>
