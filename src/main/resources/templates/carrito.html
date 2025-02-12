@@ -76,8 +76,9 @@
         
     </main>
 
-    <footer>
-        <p>&copy; 2024 Perfumería | <a href="#">Política de privacidad</a></p>
+    <!-- Pie de página-->
+    <footer> 
+        <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
     </footer>
 
     <script>
@@ -188,21 +189,23 @@
         }
     
         async function checkout() {
-            try {
-                const response = await fetch("/cart/checkout", { method: "POST" });
+    try {
+        const response = await fetch("/cart/checkout");
+        if (!response.ok) throw new Error("El carrito está vacío o hubo un error.");
+
+        const cartItems = await response.json();
+        localStorage.setItem("checkoutCart", JSON.stringify(cartItems));
+
+        window.location.href = "/cart/checkout";
+
+    } catch (error) {
+        console.error("Error en checkout:", error);
+        alert("No se pudo completar la compra.");
+    }
+}
+
+
     
-                if (!response.ok) {
-                    throw new Error("Error al finalizar la compra");
-                }
-    
-                const message = await response.text();
-                alert(message);
-                loadCart();
-            } catch (error) {
-                console.error("Error al finalizar la compra:", error);
-                alert("No se pudo completar la compra. Inténtalo de nuevo.");
-            }
-        }
     </script>
     
 </body>

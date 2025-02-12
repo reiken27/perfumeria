@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/checkout.css}">
+
+    <header>
+
+        <div class="header-left">
+          <img src="/img/Logo.png" alt="Logo" title="Logo Parfumes c'est bon" width="130px">
+          <div class="brand-text">
+            <span>Parfumes</span>
+            <span>c'est bon</span>
+          </div>
+        </div>
+        <div class="header-right">
+            <img src="/img/Flecha.png" alt="Flecha" title="flecha" class="arrow-icon">
+            <a href="#"><span class="material-symbols-outlined icon">account_circle</span></a>
+            
+        </div>
+          </div>
+    </header>   
+</head>
+<body>
+    <h1>Checkout</h1>
+
+    <div >
+        <!-- Formulario de datos de la tarjeta y envío -->
+        <main>
+            <div class="form-container">
+                <h2>Datos de Pago</h2>
+                <div class="form-section">
+                    <label for="cardNumber">Número de tarjeta:</label>
+                    <input type="text" id="cardNumber" placeholder="Ingrese el número de tarjeta">
+                </div>
+                <div class="form-section">
+                    <label for="expiryDate">Fecha de vencimiento:</label>
+                    <input type="text" id="expiryDate" placeholder="MM/AA">
+                </div>
+                <div class="form-section">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" placeholder="Ingrese el CVV">
+                </div>
+            </div>
+        
+            <div class="form-container">
+                <h3>Datos de Envío</h3>
+                <div class="form-section">
+                    <label for="address">Dirección:</label>
+                    <input type="text" id="address" placeholder="Ingrese su dirección">
+                </div>
+                <div class="form-section">
+                    <label for="city">Ciudad:</label>
+                    <input type="text" id="city" placeholder="Ingrese su ciudad">
+                </div>
+                <div class="form-section">
+                    <label for="postalCode">Código Postal:</label>
+                    <input type="text" id="postalCode" placeholder="Ingrese el código postal">
+                </div>
+            </div>
+        </main>
+        
+        
+
+        <!-- Resumen de la compra -->
+        <aside>
+            <h2>Resumen de Compra</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${cartItems}">
+                        <td th:text="${item.productName}"></td>
+                        <td th:text="${item.quantity}"></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${item.quantity * item.price}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Total a pagar:</strong> <span th:text="${#aggregates.sum(cartItems.![quantity * price])}"></span></p>
+
+            <button onclick="finalizarCompra()">Finalizar Compra</button>
+        </aside>
+    </div>
+
+    <!-- Pie de página-->
+    <footer> 
+        <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
+    </footer>
+
+    <script>
+        function finalizarCompra() {
+            alert("Compra realizada con éxito.");
+            window.location.href = "/";  // Redirige a la página principal tras finalizar
+        }
+    </script>
+</body>
+</html>

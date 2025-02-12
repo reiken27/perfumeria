@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    margin-top: 20px;
+  }
+  
+  .header-left,
+  .header-center,
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 45px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  
+  .header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+    max-width: 400px;
+    flex-grow: 1;
+    margin: 0 auto;
+  }
+  
+  .search-bar input[type="search"] {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+  }
+  
+  .search-bar span.material-symbols-outlined {
+    color: #666;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    padding-right: 20px;
+    gap: 20px; 
+  }
+  
+  .arrow-icon {
+    width: 100px; 
+    height: auto; 
+    margin-right: 10px; 
+  }
+  
+  
+  .icon {
+    font-size: 32px; 
+    color: #333;
+  }
+  
+  .header-right a {
+    text-decoration: none;
+  }
+  
+  
+  nav {
+    padding: 10px;
+    background-color: transparent; 
+    margin-top: 30px;
+    max-width: 1000px; 
+    margin: 20px auto; 
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    color: #333; 
+    text-decoration: none;
+    padding: 8px 70px; 
+    background-color: #f4d0e2da; 
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  nav a:hover {
+    background-color: #ffb3d9; 
+    border-color: #ff66b2;
+  }
+
+  
+/* Estilos Generales */
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+
+h1{
+    margin:20px;
+  font-size: 1.5em;
+  font-weight: bold; /* Permite el desplazamiento con top */
+  top: -15px; /* Desplaza hacia arriba */
+  display: block;
+  padding: 15px 40px;
+  border: 2px solid #bb7d9cda;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* Contenedor principal */
+div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* Formularios (Datos de Pago y Envío) */
+main {
+    width: 65%;
+}
+
+/* Contenedor para cada formulario */
+.form-container {
+    padding: 1.5em;
+    background-color: #f9f9f9;
+    border: 2px solid #bb7d9cda;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    display: block; /* Asegura que el formulario esté en bloque */
+}
+
+/* H2 y H3 para los títulos dentro de los formularios */
+.form-container h2, .form-container h3 {
+    margin-bottom: 15px;
+}
+
+/* Las secciones dentro de los formularios */
+.form-section {
+    display: block; /* Asegura que las secciones se apilen verticalmente */
+    margin-bottom: 20px;
+    width: 100%; /* Asegura que las secciones ocupen todo el ancho disponible */
+}
+
+/* Estilo de las etiquetas y entradas */
+.form-section label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-section input {
+    width: 100%; /* Asegura que los inputs ocupen todo el ancho */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Resumen de Compra (Aside) */
+aside {
+    width: 30%;
+    padding: 1.5em;
+    background-color: #f9f9f9;
+    border: 2px solid #bb7d9cda;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+    color:#bb7d9cda;
+}
+
+#total {
+    font-size: 20px;
+    color: #bb7d9cda;
+}
+
+button {
+    padding: 12px;
+    background-color: #bb7d9cda;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #ffb3d9;
+}
+
+footer {
+    background: linear-gradient(to right, #fff8b1, #f9bbff); 
+    border-radius: 40px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
