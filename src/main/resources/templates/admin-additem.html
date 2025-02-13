@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Product</title>
+    <script>
+        async function uploadImage() {
+            const fileInput = document.getElementById("imageFile");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select an image.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const response = await fetch("http://localhost:8080/api/images/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error("Image upload failed");
+                }
+
+                const fileName = await response.text(); // Now response contains only the filename
+
+                // Store only the filename
+                document.getElementById("imageUrl").value = fileName;
+
+                // Show a preview (using the correct URL to display the image)
+                const previewUrl = `http://localhost:8080/api/images/${fileName}`;
+                document.getElementById("preview").src = previewUrl;
+                document.getElementById("preview").style.display = "block";
+
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                alert("Image upload failed.");
+            }
+        }
+
+        async function submitProduct(event) {
+            event.preventDefault();
+
+            const product = {
+                name: document.getElementById("name").value,
+                description: document.getElementById("description").value,
+                price: parseFloat(document.getElementById("price").value),
+                brand: document.getElementById("brand").value,
+                category: document.getElementById("category").value,
+                image: document.getElementById("imageUrl").value // Now only stores the filename
+            };
+
+            try {
+                const response = await fetch("http://localhost:8080/products", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(product)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Product upload failed");
+                }
+
+                alert("Product uploaded successfully!");
+                document.getElementById("productForm").reset();
+                document.getElementById("preview").style.display = "none";
+            } catch (error) {
+                console.error("Error submitting product:", error);
+                alert("Product upload failed.");
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h2>Upload New Product</h2>
+
+    <form id="productForm" onsubmit="submitProduct(event)">
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" step="0.01" required><br><br>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" required><br><br>
+
+        <label for="category">Category:</label>
+        <select id="category" required>
+            <option value="" disabled selected>Select a category</option>
+            <option value="MEN">MEN</option>
+            <option value="WOMEN">WOMEN</option>
+            <option value="UNISEX">UNISEX</option>
+            <option value="KIDS">KIDS</option>
+        </select>
+        <br><br>
+        <label for="imageFile">Upload Image:</label>
+        <input type="file" id="imageFile" accept="image/*" required>
+        <button type="button" onclick="uploadImage()">Upload Image</button>
+        <br><br>
+
+        <label for="imageUrl">Image Filename:</label>
+        <input type="text" id="imageUrl" readonly required><br><br>
+
+        <img id="preview" src="" style="display:none; max-width: 200px;"><br><br>
+
+        <button type="submit">Submit Product</button>
+    </form>
+
+</body>
+</html>

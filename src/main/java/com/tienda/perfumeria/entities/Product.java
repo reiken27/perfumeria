@@ -1,23 +1,24 @@
 package com.tienda.perfumeria.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
 
 @Entity
 public class Product {
 
     @Override
-    public String toString(){
-        return("Product: " 
-        + " id= " + id + '\''
-        + " name= " + name + '\''
-        + " description= " + description + '\''
-        + " price= " + price + '\''
-        + " brand= " + brand + '\''
-        + " category= " + category);
+    public String toString() {
+        return ("Product: "
+                + " id= " + id + '\''
+                + " name= " + name + '\''
+                + " description= " + description + '\''
+                + " price= " + price + '\''
+                + " brand= " + brand + '\''
+                + " category= " + category)
+                + " image= " + image + '\'';
     }
 
     @Id
@@ -73,6 +74,14 @@ public class Product {
         this.category = category;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Column(nullable = false)
     private String name;
 
@@ -88,4 +97,6 @@ public class Product {
     @Column(nullable = false)
     private Category category;
 
+    @Column(nullable = false)
+    private String image;
 }
