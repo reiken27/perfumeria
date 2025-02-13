@@ -1,8 +1,12 @@
 <th:block th:each="product : ${products}">
     <article>
-<a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
-            <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
-        </a>            <h2 th:text="${product.name}"></h2>
+    <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
+        <img th:src="@{'http://localhost:8080/api/images/' + ${product.image}}" 
+        alt="Imagen de Producto" 
+        title="Imagen de Producto" 
+        class="product-image">        
+    </a>   
+            <h2 th:text="${product.name}"></h2>
             <p th:text="${product.description}"></p>
             <p th:text="'$' + ${product.price}"></p>
             <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
@@ -19,7 +23,7 @@
             <form class="add-to-cart-form">
                 <input type="hidden" name="productId" th:value="${product.id}">
                 <input type="number" name="quantity" value="1" min="1" max="100">
-                <button type="submit" class="buy-button">Comprar</button>
+                <button type="submit" class="buy-button-item">Comprar</button>
             </form>
         </article>
 </th:block>

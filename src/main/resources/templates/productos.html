@@ -57,8 +57,11 @@
         <th:block th:each="product : ${products}">
             <article>
                 <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
-                    <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
-                </a>
+                    <img th:src="@{'http://localhost:8080/api/images/' + ${product.image}}" 
+                    alt="Imagen de Producto" 
+                    title="Imagen de Producto" 
+                    class="product-image">        
+                </a>          
                 <h2 th:text="${product.name}"></h2>
                 <p th:text="${product.description}"></p>
                 <p th:text="'$' + ${product.price}"></p>

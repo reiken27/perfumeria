@@ -211,12 +211,22 @@ article input[type="number"] {
 
 
 fieldset {
-  border: none;
-  margin: 10px 0;
-  font-size: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    border: 1px solid #ccc;
+    padding: 10px;
 }
 
+legend {
+    text-align: center;
+    width: 100%;
+}
 
+.options-container {
+    display: flex;
+    gap: 10px;
+}
 
 
   footer {

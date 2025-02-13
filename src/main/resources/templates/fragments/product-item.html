@@ -1,7 +1,11 @@
 <div th:fragment="productItem" id="product-container">
     <div class="product-wrapper">
-        <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" class="product-image">
-        
+    <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
+        <img th:src="@{'http://localhost:8080/api/images/' + ${product.image}}" 
+        alt="Imagen de Producto" 
+        title="Imagen de Producto" 
+        class="product-image">        
+    </a>                  
         <div class="product-details">
             <h2 th:text="${product.name}">Nombre del Producto</h2>
             <p th:text="${product.description}">Descripción</p>
