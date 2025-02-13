@@ -52,6 +52,8 @@
     </nav>
 
     <h1>Perfumes de Mujer</h1>
+<main>
+    
     <th:block th:each="product : ${products}">
         <article>
             <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
@@ -78,7 +80,7 @@
             </form>
         </article>
     </th:block>
-
+</main>
     <div id="cart-container"></div>
 
     <script>
