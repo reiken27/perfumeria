@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tienda.perfumeria.entities.Product;
 import com.tienda.perfumeria.services.ProductService;
@@ -120,5 +121,15 @@ public class ProductController {
         model.addAttribute("products", products);
         return "perfumesHombre"; 
     }
-
+    @GetMapping("/all")
+    @ResponseBody
+    public List<Product> getAllProducts() {
+        return productService.findAllProducts();
+    }
+    
+    @GetMapping("/promociones")
+    @ResponseBody
+    public List<Product> getPromotions() {
+        return productService.findTenProducts();
+    }
 }

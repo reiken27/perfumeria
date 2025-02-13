@@ -46,8 +46,8 @@
         <ul>
             <li><a th:href="@{/}">Inicio</a></li>
             <li><a th:href="@{/products/woman}">Mujer</a></li>
-            <li><a href="bestSellers.html">Best Seller</a></li>
-            <li><a href="promociones.html">Promociones</a></li>          
+            <li><a th:href="@{/productos}">Productos</a></li>
+            <li><a th:href="@{/promociones}">Promociones</a></li>            
         </ul>
     </nav>
 
@@ -81,46 +81,6 @@
 
     <div id="cart-container"></div>
 
-    <script>
-        document.querySelectorAll('.add-to-cart-form').forEach(form => {
-            form.addEventListener('submit', async event => {
-                event.preventDefault();
-
-                const formData = new FormData(form);
-                const jsonData = {};
-
-                formData.forEach((value, key) => {
-                    jsonData[key] = value;
-                });
-
-                try {
-                    const response = await fetch('/cart/add', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(jsonData)
-                    });
-
-                    if (response.ok) {
-                        const result = await response.json();
-                        document.querySelector("#cart-container").innerHTML = `
-                            <p>Producto agregado al carrito: ${result.productName || 'Producto'}</p>
-                        `;
-                    } else {
-                        document.querySelector("#cart-container").innerHTML = `
-                            <p>Error al agregar el producto</p>
-                        `;
-                    }
-                } catch (error) {
-                    console.error("Error en la solicitud:", error);
-                    document.querySelector("#cart-container").innerHTML = `
-                        <p>Error en la solicitud</p>
-                    `;
-                }
-            });
-        });
-    </script>
 </body>
 </html>
 
@@ -129,6 +89,6 @@
     <footer> 
         <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
     </footer>
-
+    <script th:src="@{/js/cart.js}"></script>
 </body>
 </html>

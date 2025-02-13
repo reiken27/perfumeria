@@ -75,9 +75,17 @@ public class ProductService {
         // Retornar los primeros 4 productos aleatorios
         return allProducts.subList(0, 4);
     }
-    
-    
-    
-    
+    public List<Product> findTenProducts(){
+        long count = productRepository.count();
+
+        if (count <= 10) {
+            return productRepository.findAll();
+        }
+
+        List<Product> allProducts = productRepository.findAll();
+        Collections.shuffle(allProducts);
+        
+        return allProducts.subList(0, 10);
+    }
     
 }
