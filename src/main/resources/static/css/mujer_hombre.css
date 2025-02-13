@@ -135,14 +135,20 @@
     border-color: #ff66b2;
   }
   
+  h1 {
+    font-size: 2rem; 
+    padding: 35px 0; 
+    text-align: center; 
+  }  
   /* Contenedor principal de los productos */
-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
+  main, #product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
 
 /* Estilos de cada artículo */
 article {

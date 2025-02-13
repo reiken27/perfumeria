@@ -298,7 +298,7 @@ section legend {
 section label {
   margin-right: 10px;
 }
-.buy-button {
+.buy-button, .buy-button-item {
   background: #ff4081;
   color: white;
   border: none;
@@ -307,6 +307,8 @@ section label {
   cursor: pointer;
   transition: background 0.3s ease;
 }
+ 
+
 
 .buy-button:hover {
   background: #e91e63;
@@ -371,6 +373,12 @@ section label {
 .recomendado-item p {
   font-size: 1.3rem;
   margin: 0;
+}
+#recomendados-container {
+  border-radius: 10px; 
+
+  padding: 10px; 
+  background: #f9f9f9; 
 }
 
 

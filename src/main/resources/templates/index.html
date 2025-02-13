@@ -27,12 +27,6 @@
           </div>
         </div>
       
-        <div class="header-center">
-          <div class="search-bar">
-            <input type="search" title="Buscar" placeholder="Buscar">
-            <span class="material-symbols-outlined">search</span>
-          </div>
-        </div>
       
         <div class="header-right">
             <img src="/img/Flecha.png" alt="Flecha" title="flecha" class="arrow-icon">
@@ -60,11 +54,14 @@
     <div class="banner-container">
         <button class="arrow-btn left-arrow" onclick="changeBanner(-1)">&#8592;</button>
         <div class="banner">
-            <img src="/img/banner.png" alt="Banner 1" class="banner-img" id="banner-img">
+            <!-- Envolvemos la imagen en un enlace -->
+            <a href="http://localhost:8080/productos">
+                <img src="/img/banner.png" alt="Banner 1" class="banner-img" id="banner-img">
+            </a>
         </div>
         <button class="arrow-btn right-arrow" onclick="changeBanner(1)">&#8594;</button>
-
     </div>
+    
 
     <!-- Sección principal -->
 
@@ -74,7 +71,7 @@
     <div class="contenedor-principal">
         <!-- Sección principal de perfumes -->
         <main>
-            <h2>Lista de Productos</h2>
+            <h2>Destacados de la semana</h2>
 
                 <section id="product-container"
                     class="perfumes-section"
