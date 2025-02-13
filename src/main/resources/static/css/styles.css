@@ -195,6 +195,7 @@ nav a:hover {
   align-items: stretch;
 }
 
+
 /* Estilos unificados para los productos */
 .producto {
   display: flex;
@@ -218,12 +219,12 @@ nav a:hover {
 
 .producto h2 {
   font-size: 1.2rem;
-  margin: 10px 0; /* Ajusta los márgenes */
+  margin: 10px 0; 
 }
 
 .producto p {
   height: 40px;
-  margin: 5px 0; /* Ajusta los márgenes */
+  margin: 5px 0; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -236,8 +237,20 @@ section article {
   flex-direction: column;
   justify-content: space-between;
   height: auto;
-  align-self: stretch; /* Evita alturas diferentes en la grilla */
+  align-self: stretch; 
 }
+article h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 10px 0;
+}
+
+article p {
+  color: #555;
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
 
 /* Estilos para imágenes */
 .producto img {
@@ -251,6 +264,7 @@ section article img {
   height: auto;
   border-radius: 8px;
   margin-bottom: 10px;
+  align-self: center;
 }
 
 /* Textos */
@@ -284,6 +298,22 @@ section legend {
 section label {
   margin-right: 10px;
 }
+.buy-button, .buy-button-item {
+  background: #ff4081;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+ 
+
+
+.buy-button:hover {
+  background: #e91e63;
+}
+
 
 
 /* Lista de perfumes recomendados */
@@ -343,6 +373,12 @@ section label {
 .recomendado-item p {
   font-size: 1.3rem;
   margin: 0;
+}
+#recomendados-container {
+  border-radius: 10px; 
+
+  padding: 10px; 
+  background: #f9f9f9; 
 }
 
 

@@ -212,50 +212,76 @@ main {
 
 /* Resumen de Compra (Aside) */
 aside {
-    width: 30%;
-    padding: 1.5em;
-    background-color: #f9f9f9;
-    border: 2px solid #bb7d9cda;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-right: 25px;
+  width: 30%;
+  padding: 1.5em;
+  background-color: #f9f9f9;
+  border: 2px solid #bb7d9cda;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: stretch; 
+  margin-right: 25px;
+  margin-top: 30px;
+  margin-bottom: 25px;
 }
 
-h2 {
-    font-size: 20px;
-    font-weight: bold;
+/* Título del resumen */
+aside h2 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
+/* Tabla de productos */
 table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  text-align: left;
 }
 
 th, td {
-    padding: 8px;
-    text-align: left;
-    font-size: 14px;
+  padding: 10px;
+  font-size: 14px;
 }
 
 th {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
+  text-align: left;
+  border-bottom: 2px solid #bb7d9cda;
 }
 
 td {
-    border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 
+
+tbody tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+
+
+
+th:last-child, td:last-child {
+  text-align: right;
+  width:1px; 
+}
+
+/* Total a pagar */
 p {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 20px;
-    color:#bb7d9cda;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 40px;
+  color: #bb7d9cda;
+  text-align: center;
 }
-
 #total {
     font-size: 20px;
     color: #bb7d9cda;
@@ -271,7 +297,7 @@ button {
     border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 20px;
+    margin-top: 35px;
     text-align: center;
 }
 

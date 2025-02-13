@@ -33,5 +33,12 @@ public class FrontController {
     public String showProduct(@PathVariable int id) {
         return "producto-item";
     }
-
+    @GetMapping("promociones")
+    public String showPromotions() {
+        return "promociones";
+    }
+    @GetMapping("productos")
+    public String showProducts() {
+        return "productos";
+    }
 }

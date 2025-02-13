@@ -51,36 +51,36 @@
         </ul>
     </nav>
 
-    <h1>Perfumes de Mujer</h1>
-<main>
+    <h1>Nuestras fragancias</h1>
     
-    <th:block th:each="product : ${products}">
-        <article>
-            <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
-                <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
-            </a>
-            <h2 th:text="${product.name}"></h2>
-            <p th:text="${product.description}"></p>
-            <p th:text="'$' + ${product.price}"></p>
-            <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
-
-            <fieldset>
-                <legend>Elegí un tamaño</legend>
-                <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
-                <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+    <div id="product-list">
+        <th:block th:each="product : ${products}">
+            <article>
+                <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
+                    <img src="/img/pepe.jpg" alt="Imagen de Producto" title="Imagen de Producto" width="250px">
+                </a>
+                <h2 th:text="${product.name}"></h2>
+                <p th:text="${product.description}"></p>
+                <p th:text="'$' + ${product.price}"></p>
+                <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
+    
+                <fieldset>
+                    <legend>Elegí un tamaño</legend>
+                    <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
+                    <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+                    
+                    <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
+                    <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                </fieldset>
                 
-                <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
-                <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
-            </fieldset>
-            
-            <form class="add-to-cart-form">
-                <input type="hidden" name="productId" th:value="${product.id}">
-                <input type="number" name="quantity" value="1" min="1" max="100">
-                <button type="submit">Comprar</button>
-            </form>
-        </article>
-    </th:block>
-</main>
+                <form class="add-to-cart-form">
+                    <input type="hidden" name="productId" th:value="${product.id}">
+                    <input type="number" name="quantity" value="1" min="1" max="100">
+                    <button type="submit">Comprar</button>
+                </form>
+            </article>
+        </th:block>
+</div>
     <div id="cart-container"></div>
 
 </body>
@@ -91,6 +91,6 @@
     <footer> 
         <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
     </footer>
-    <script th:src="@{/js/cart.js}"></script>
+    <script th:src="@{/js/productos.js}"></script>
 </body>
 </html>
