@@ -150,19 +150,18 @@
     align-items: center;
     gap: 20px 20px;
     padding: 10px 10px;
+    justify-content: space-evenly;
   }
 
 
   main article {
-    width: calc(33.33% - 20px); 
-    border: 1px solid green;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    min-height: 100%;
-    text-align: center;
-    transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  align-self: stretch;
   }
   
   a img {
@@ -188,7 +187,6 @@ article {
 /* Imagen del producto */
 article img {
   max-width:60%;
-  height:100%;
   border-radius: 5px;
 }
 

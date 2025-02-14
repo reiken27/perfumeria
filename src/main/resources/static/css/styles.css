@@ -244,6 +244,7 @@ section article {
   width: 300px;
   max-width: 370px;
   max-height:auto;
+  overflow: hidden;
   gap:10px;
   border-radius: 8px;
   margin: 5px 5px;
@@ -252,6 +253,7 @@ section article {
 }
 article h2 {
   font-size: 1.2rem;
+  overflow: hidden;
   color: #333;
   margin: 10px 0;
 }
@@ -260,7 +262,7 @@ article p {
   color: #555;
   font-size: 0.9rem;
   margin: 5px 0;
-  overflow:scroll;
+  overflow:hidden;
 }
 
 .product-image{
@@ -612,7 +614,6 @@ footer {
   font-size: 50px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
 #product-page .buy-button:hover {
