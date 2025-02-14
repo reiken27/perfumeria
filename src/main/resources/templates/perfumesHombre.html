@@ -46,8 +46,9 @@
         <ul>
             <li><a th:href="@{/}">Inicio</a></li>
             <li><a th:href="@{/products/woman}">Mujer</a></li>
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>            
+            <li><a th:href="@{/products/man}">Hombre</a></li>
+            <li><a th:href="@{/products/all}">Productos</a></li>
+            <li><a th:href="@{/products/promociones}">Promociones</a></li>          
         </ul>
     </nav>
 
@@ -55,23 +56,26 @@
     <main>
     <th:block th:each="product : ${products}">
         <article>
-    <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
-        <img th:src="@{'http://localhost:8080/api/images/' + ${product.image}}" 
-        alt="Imagen de Producto" 
-        title="Imagen de Producto" 
-        class="product-image">        
-    </a>                      <h2 th:text="${product.name}"></h2>
+            <a th:href="@{'http://localhost:8080/item/' + ${product.id}}">
+                <img th:src="@{'http://localhost:8080/api/images/' + ${product.image}}" 
+                alt="Imagen de Producto" 
+                title="Imagen de Producto" 
+                class="product-image">        
+            </a>                      
+            <h2 th:text="${product.name}"></h2>
             <p th:text="${product.description}"></p>
             <p th:text="'$' + ${product.price}"></p>
             <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
 
             <fieldset>
                 <legend>Elegí un tamaño</legend>
-                <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
-                <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
-                
-                <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
-                <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                <div class="options-container">
+                    <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
+                    <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+                    
+                    <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
+                    <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                </div>
             </fieldset>
             
             <form class="add-to-cart-form">
@@ -83,9 +87,6 @@
     </th:block>
     </main>
     <div id="cart-container"></div>
-
-</body>
-</html>
 
 
     <!-- Pie de página-->

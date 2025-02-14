@@ -45,9 +45,10 @@
     <nav>
         <ul>
             <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/products/woman}">Mujer</a></li>
             <li><a th:href="@{/products/man}">Hombre</a></li>
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>          
+            <li><a th:href="@{/products/all}">Productos</a></li>
+            <li><a th:href="@{/products/promociones}">Promociones</a></li>          
         </ul>
     </nav>
 
@@ -86,14 +87,9 @@
 </div>
     <div id="cart-container"></div>
 
-</body>
-</html>
-
-
     <!-- Pie de página-->
     <footer> 
         <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
     </footer>
-    <script th:src="@{/js/productos.js}"></script>
 </body>
 </html>

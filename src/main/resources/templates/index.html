@@ -10,15 +10,10 @@
     <link rel="icon" href="/img/Logo.ico">
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>    
     <link rel="stylesheet" href="/css/styles.css">
-
-
 </head>
 
 <body>
-
-    <!-- Encabezado -->
     <header>
-
         <div class="header-left">
           <img src="/img/Logo.png" alt="Logo" title="Logo Parfumes c'est bon" width="130px">
           <div class="brand-text">
@@ -27,7 +22,6 @@
           </div>
         </div>
       
-      
         <div class="header-right">
             <img src="/img/Flecha.png" alt="Flecha" title="flecha" class="arrow-icon">
             <a href="/carrito"><span class="material-symbols-outlined icon">shopping_cart</span></a>
@@ -35,41 +29,31 @@
             <div id="user-info" hx-get="/users/me" hx-trigger="load" hx-target="#user-info">
            
         </div>
-          </div>
-          
-      </header>
-      
+          </div>  
+      </header>  
 
 
-    <!-- Navegador -->
     <nav>
         <ul>
+            <li><a th:href="@{/}">Inicio</a></li>
             <li><a th:href="@{/products/woman}">Mujer</a></li>
             <li><a th:href="@{/products/man}">Hombre</a></li>
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>         
+            <li><a th:href="@{/products/all}">Productos</a></li>
+            <li><a th:href="@{/products/promociones}">Promociones</a></li>         
         </ul>
     </nav>
 
     <div class="banner-container">
         <button class="arrow-btn left-arrow" onclick="changeBanner(-1)">&#8592;</button>
         <div class="banner">
-            <!-- Envolvemos la imagen en un enlace -->
             <a href="http://localhost:8080/productos">
                 <img src="/img/banner.png" alt="Banner 1" class="banner-img" id="banner-img">
             </a>
         </div>
         <button class="arrow-btn right-arrow" onclick="changeBanner(1)">&#8594;</button>
     </div>
-    
-
-    <!-- Sección principal -->
-
-
-    
 
     <div class="contenedor-principal">
-        <!-- Sección principal de perfumes -->
         <main>
             <h2>Destacados de la semana</h2>
 

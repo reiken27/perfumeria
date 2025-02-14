@@ -2,30 +2,29 @@ package com.tienda.perfumeria.entities;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-@Table(name = "users")
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Integer id;
 
@@ -35,27 +34,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = true)
-    private String username;
-
-    @Column(nullable = false)
-    private String mobileNum;
-
-    //credit card
-    @JoinColumn
-    @OneToOne
-    private CreditCard[] creditCard;
-
-    @PrimaryKeyJoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
-    @Column(nullable = true)
-    private String[] orders;
-
-    @Column(nullable = true)
-    private String[] cart;
-
-    @Column(unique = true, length = 100, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -65,13 +44,21 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Date birthDate;
 
-    @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    @Column(nullable = false)
+    private String mobileNum;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private Date updatedAt;
+    @ManyToMany(fetch = FetchType.EAGER) // Carga los roles automáticamente
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles; // Spring Security usará estos roles
+    }
 
     @Override
     public String getUsername() {
@@ -79,35 +66,12 @@ public class User implements UserDetails {
     }
 
     public void setUsername(String username) {
-        this.username = username;
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        this.email = username;
     }
 
+    @Override
     public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return this.password;
     }
 
     public Integer getId() {
@@ -133,53 +97,40 @@ public class User implements UserDetails {
         return this;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public User setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public User setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
-    public String toString() {
-        return ("User{"
-                + "id="
-                + id
-                + ", fullName='"
-                + name
-                + ' '
-                + lastName
-                + '\''
-                + ", email='"
-                + email
-                + '\''
-                + ", password='"
-                + password
-                + '\''
-                + ", createdAt="
-                + createdAt
-                + ", updatedAt="
-                + updatedAt
-                + ", mobileNum="
-                + mobileNum
-                + ", address="
-                + address
-                + ", orders="
-                + orders
-                + ", cart="
-                + cart
-                + '}');
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public String getName() {
@@ -205,45 +156,4 @@ public class User implements UserDetails {
     public void setMobileNum(String mobileNum) {
         this.mobileNum = mobileNum;
     }
-
-    public CreditCard[] getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard[] creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String[] getOrders() {
-        return orders;
-    }
-
-    public void setOrders(String[] orders) {
-        this.orders = orders;
-    }
-
-    public String[] getCart() {
-        return cart;
-    }
-
-    public void setCart(String[] cart) {
-        this.cart = cart;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
 }

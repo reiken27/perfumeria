@@ -45,9 +45,10 @@
     <nav>
         <ul>
             <li><a th:href="@{/}">Inicio</a></li>
+            <li><a th:href="@{/products/woman}">Mujer</a></li>
             <li><a th:href="@{/products/man}">Hombre</a></li>
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>          
+            <li><a th:href="@{/products/all}">Productos</a></li>
+            <li><a th:href="@{/products/promociones}">Promociones</a></li>          
         </ul>
     </nav>
 
@@ -68,13 +69,14 @@
 
             <fieldset>
                 <legend>Elegí un tamaño</legend>
-                <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
-                <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
-                
-                <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
-                <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                <div class="options-container">
+                    <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
+                    <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+                    
+                    <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
+                    <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                </div>
             </fieldset>
-            
             <form class="add-to-cart-form">
                 <input type="hidden" name="productId" th:value="${product.id}">
                 <input type="number" name="quantity" value="1" min="1" max="100">
@@ -84,10 +86,6 @@
     </th:block>
 </main>
     <div id="cart-container"></div>
-
-</body>
-</html>
-
 
     <!-- Pie de página-->
     <footer> 

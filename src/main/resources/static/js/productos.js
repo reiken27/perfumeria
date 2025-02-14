@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <a href="http://localhost:8080/item/${product.id}">
                     <img src="/img/pepe.jpg" alt="${product.name}" title="${product.name}" width="250px">
                 </a>
+                
                 <h2>${product.name}</h2>
                 <p>${product.description}</p>
                 <p>Precio: $${product.price}</p>
@@ -34,20 +35,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 <fieldset>
                     <legend>Elegí un tamaño</legend>
-                    <label for="size-50-${product.id}">50 ML</label>
-                    <input type="radio" value="50" name="size-${product.id}" id="size-50-${product.id}">
-                    
-                    <label for="size-100-${product.id}">100 ML</label>
-                    <input type="radio" value="100" name="size-${product.id}" id="size-100-${product.id}">
+                    <div class="options-container">
+                        <label th:for="'size-50-' + ${product.id}" th:text="'50 ML'"></label>
+                        <input type="radio" value="50" th:name="'size-' + ${product.id}" th:id="'size-50-' + ${product.id}">
+                        
+                        <label th:for="'size-100-' + ${product.id}" th:text="'100 ML'"></label>
+                        <input type="radio" value="100" th:name="'size-' + ${product.id}" th:id="'size-100-' + ${product.id}">
+                    </div>
                 </fieldset>
-                
+                    
                 <form class="add-to-cart-form">
                     <input type="hidden" name="productId" value="${product.id}">
                     <input type="number" name="quantity" value="1" min="1" max="100">
                     <button type="submit">Comprar</button>
                 </form>
             `;
-            
+
             container.appendChild(article);
         });
     }

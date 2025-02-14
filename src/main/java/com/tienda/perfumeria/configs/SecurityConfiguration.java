@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/", "/login", "/signup").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/images/**").permitAll()
                 .requestMatchers("/", "/login", "/signup", "/promociones", "/productos").permitAll()
                 .requestMatchers("/cart/**").authenticated()
@@ -67,4 +68,5 @@ public class SecurityConfiguration {
 
         return source;
     }
+
 }

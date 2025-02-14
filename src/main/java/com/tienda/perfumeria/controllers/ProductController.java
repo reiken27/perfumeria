@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tienda.perfumeria.entities.Product;
 import com.tienda.perfumeria.services.ProductService;
@@ -112,24 +111,28 @@ public class ProductController {
     public String getWomenPerfumes(Model model) {
         List<Product> products = productService.findByFilters(null, null, "WOMEN", null, null); // Filtrar solo por WOMEN
         model.addAttribute("products", products);
-        return "perfumesMujer"; 
+        return "perfumesMujer";
     }
 
     @GetMapping("/man")
-        public String getMenPerfumes(Model model) {
+    public String getMenPerfumes(Model model) {
         List<Product> products = productService.findByFilters(null, null, "MEN", null, null); // Filtrar solo por MEN
         model.addAttribute("products", products);
-        return "perfumesHombre"; 
+        return "perfumesHombre";
     }
+
     @GetMapping("/all")
-    @ResponseBody
-    public List<Product> getAllProducts() {
-        return productService.findAllProducts();
+    public String getAllPerfumes(Model model) {
+        List<Product> products = productService.findAllProducts();
+        model.addAttribute("products", products);
+        return "productos";
     }
-    
+
     @GetMapping("/promociones")
-    @ResponseBody
-    public List<Product> getPromotions() {
-        return productService.findTenProducts();
+    public String getPromocionesPerfumes(Model model) {
+        List<Product> products = productService.findTenProducts();
+        model.addAttribute("products", products);
+        return "promociones";
     }
+
 }

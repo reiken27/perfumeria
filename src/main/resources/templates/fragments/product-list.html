@@ -9,7 +9,7 @@
             <h2 th:text="${product.name}"></h2>
             <p th:text="${product.description}"></p>
             <p th:text="'$' + ${product.price}"></p>
-            <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
+            <p>6 Cuotas de <span th:text="'$'+${(product.price/6)}"></span></p>
 
             <fieldset>
                 <legend>Elegí un tamaño</legend>
