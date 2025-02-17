@@ -92,12 +92,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleCartException(CartException ex) {
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("timestamp", LocalDateTime.now());
-        errorResponse.put("status", HttpStatus.BAD_REQUEST.value());
+        errorResponse.put("status", HttpStatus.BAD_REQUEST.value()); // Cambiado a 400
         errorResponse.put("error", "Error en la operación del carrito");
         errorResponse.put("message", ex.getMessage());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse); // Cambiado a 400
     }
+
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleProductNotFoundException(ProductNotFoundException ex) {

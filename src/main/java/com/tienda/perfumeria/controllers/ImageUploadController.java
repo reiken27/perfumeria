@@ -28,7 +28,7 @@ public class ImageUploadController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            throw new InvalidProductException("El archivo está vacío");
+            throw new InvalidProductException("El archivo está vacío");  // Lanza InvalidProductException
         }
 
         try {
@@ -47,7 +47,7 @@ public class ImageUploadController {
 
             return ResponseEntity.ok(fileName);
         } catch (IOException e) {
-            throw new CartException("Error al subir el archivo");
+            throw new CartException("Error al subir el archivo");  // Lanza CartException si ocurre un error de IO
         }
     }
 }
