@@ -8,13 +8,15 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.tienda.perfumeria.exceptions.CartException;
+import com.tienda.perfumeria.exceptions.InvalidProductException;
 
 @RestController
 @RequestMapping("/api/images")
@@ -26,7 +28,7 @@ public class ImageUploadController {
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
+            throw new InvalidProductException("El archivo está vacío");
         }
 
         try {
@@ -38,14 +40,14 @@ public class ImageUploadController {
 
             // Generate a unique filename
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir + fileName);
+            Path filePath = Paths.get(uploadDir, fileName);
 
             // Save the file to the local storage
             Files.write(filePath, file.getBytes());
 
             return ResponseEntity.ok(fileName);
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed");
+            throw new CartException("Error al subir el archivo");
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.tienda.perfumeria.controllers;
 
+import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.tienda.perfumeria.exceptions.CartException;
+import com.tienda.perfumeria.exceptions.InvalidProductException;
+import com.tienda.perfumeria.exceptions.ProductNotFoundException;
 
 @RestController
 @RequestMapping("/api/images")
@@ -31,10 +36,13 @@ public class ImageServeController {
                         .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                         .body(resource);
             } else {
-                return ResponseEntity.notFound().build();
+                throw new ProductNotFoundException("Archivo no encontrado: " + fileName);
             }
+        } catch (MalformedURLException e) {
+            throw new InvalidProductException("URL del archivo no válida");
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+            throw new CartException("Error al servir la imagen");
         }
     }
 }
+
