@@ -16,6 +16,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.tienda.perfumeria.PerfumeriaApplication;
@@ -65,7 +66,7 @@ class ImageUploadControllerTest {
     }
 
     @Test
-        void shouldReturnInternalServerErrorWhenUploadFails() throws Exception {
+        void shouldReturnBadRequestWhenUploadFails() throws Exception {
         MockMultipartFile file = new MockMultipartFile(
                 "file", "error-image.png", MediaType.IMAGE_PNG_VALUE, "test data".getBytes());
 
@@ -74,7 +75,14 @@ class ImageUploadControllerTest {
 
         mockMvc.perform(multipart(UPLOAD_URL)
                         .file(file))
-                .andExpect(status().isInternalServerError());
-}
+                .andExpect(status().isBadRequest())  
+                .andExpect(jsonPath("$.error").value("Error en la operación del carrito"))  
+                .andExpect(jsonPath("$.message").value("Error al subir el archivo"))  
+                .andExpect(jsonPath("$.status").value(400))  
+                .andExpect(jsonPath("$.timestamp").exists());  
+        }
+
+
+    
 
 }

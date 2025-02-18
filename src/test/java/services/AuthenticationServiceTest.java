@@ -60,23 +60,23 @@ class AuthenticationServiceTest {
     user.setPassword("encodedPassword");
     user.setMobileNum("123456789");
 
-    // Convertir la cadena de texto a Date
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Date birthDate = sdf.parse("1990-01-01");
     user.setBirthDate(birthDate);
 
     user.setUsername(user.getEmail());
 
-    // Inicializar RegisterUserDto
+
     registerUserDto = new RegisterUserDto();
     registerUserDto.setName("John");
     registerUserDto.setLastName("Doe");
     registerUserDto.setEmail("john.doe@example.com");
     registerUserDto.setPassword("password");
     registerUserDto.setMobileNum("123456789");
-    registerUserDto.setBirthDate(birthDate);  // Usa el mismo formato
+    registerUserDto.setBirthDate(birthDate);  
 
-    // Inicializar LoginUserDto correctamente
+
     loginUserDto = new LoginUserDto();
     loginUserDto.setEmail("john.doe@example.com");
     loginUserDto.setPassword("password");
@@ -101,9 +101,9 @@ class AuthenticationServiceTest {
         void testAuthenticate_Success() {
         when(userRepository.findByEmail(loginUserDto.getEmail())).thenReturn(Optional.of(user));
 
-        // Simular que la autenticación ocurre sin problemas
+
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
-                .thenReturn(null); // No lanza excepción
+                .thenReturn(null); 
 
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
@@ -117,14 +117,13 @@ class AuthenticationServiceTest {
 
     @Test
     void testAuthenticate_UserNotFound() {
-        // Simulamos que el usuario no existe
+
         when(userRepository.findByEmail(loginUserDto.getEmail())).thenReturn(Optional.empty());
     
         RuntimeException exception = assertThrows(RuntimeException.class, () -> authenticationService.authenticate(loginUserDto));
         
-        assertNotNull(exception);  // Verificamos que la excepción se haya lanzado
+        assertNotNull(exception);  
     
-        // La autenticación nunca debería intentarse si el usuario no se encuentra
         verify(authenticationManager, times(0)).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(userRepository, times(1)).findByEmail(loginUserDto.getEmail());
     }

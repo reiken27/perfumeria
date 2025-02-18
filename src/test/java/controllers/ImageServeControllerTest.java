@@ -22,18 +22,18 @@ import com.tienda.perfumeria.exceptions.CartException;
 import com.tienda.perfumeria.exceptions.ProductNotFoundException;
 
 @SpringBootTest(classes = PerfumeriaApplication.class)
-@AutoConfigureMockMvc // 🚀 Esto soluciona el problema con MockMvc
+@AutoConfigureMockMvc 
 @ExtendWith(SpringExtension.class)
 class ImageServeControllerTest {
 
     @Autowired
-    private MockMvc mockMvc; // ✅ Ahora sí se inyectará correctamente
+    private MockMvc mockMvc; 
 
     @MockBean
-    private ImageServeController imageServeController; // Mockea el controlador
+    private ImageServeController imageServeController; 
 
     @Mock
-    private Resource mockResource; // Mockea el recurso en lugar de usar UrlResource
+    private Resource mockResource; 
 
     @Test
     void shouldReturnImageWhenExists() throws Exception {
@@ -68,11 +68,11 @@ class ImageServeControllerTest {
         void shouldReturnBadRequestForInvalidURL() throws Exception {
         String fileName = "invalid-url.png";
 
-        // Lanza CartException cuando el controlador intenta obtener la imagen
+       
         when(imageServeController.getImage(fileName)).thenThrow(new CartException("URL mal formada"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/images/" + fileName))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest()) // Verifica que el código sea 400
+                .andExpect(MockMvcResultMatchers.status().isBadRequest()) 
                 .andExpect(MockMvcResultMatchers.content().json("{\"error\":\"Error en la operación del carrito\",\"message\":\"URL mal formada\"}"));
         }
 
