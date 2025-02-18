@@ -6,15 +6,12 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.tienda.perfumeria.dtos.CartItemDto;
 import com.tienda.perfumeria.entities.CartProduct;
+import com.tienda.perfumeria.exceptions.CartException;
+import com.tienda.perfumeria.exceptions.ProductNotFoundException;
 import com.tienda.perfumeria.repositories.ProductRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -47,69 +44,76 @@ public class ShoppingCartController {
             cart = new ArrayList<>();
             session.setAttribute(CART_SESSION_KEY, cart);
         }
-        Integer productId = cartItemDto.getProductId();
-        Integer quantity = cartItemDto.getQuantity();
 
-        if (productId != null && quantity != null) {
-            CartProduct cartProduct = productRepository.findById(productId)
-                    .map(product -> new CartProduct(product.getId(), product.getName(), quantity, product.getPrice()))
-                    .orElse(null);
-            if (cartProduct != null) {
-                cart.add(cartProduct);
-            }
+        if (cartItemDto.getProductId() == null || cartItemDto.getQuantity() == null) {
+            throw new CartException("El ID del producto y la cantidad son obligatorios.");
         }
 
+        if (cartItemDto.getQuantity() <= 0) {
+            throw new CartException("La cantidad debe ser mayor a cero.");
+        }
+
+        CartProduct cartProduct = productRepository.findById(cartItemDto.getProductId())
+                .map(product -> new CartProduct(product.getId(), product.getName(), cartItemDto.getQuantity(), product.getPrice()))
+                .orElseThrow(() -> new ProductNotFoundException("Producto no encontrado con ID: " + cartItemDto.getProductId()));
+
+        cart.add(cartProduct);
         return ResponseEntity.ok(cart);
     }
 
     @DeleteMapping("/remove/{productId}")
     public ResponseEntity<?> removeFromCart(HttpSession session, @PathVariable Integer productId) {
         List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
-        if (cart != null) {
-            cart.removeIf(item -> item.getProductId().equals(productId));
-            session.setAttribute(CART_SESSION_KEY, cart);
+        if (cart == null || cart.isEmpty()) {
+            throw new CartException("No hay productos en el carrito.");
         }
+
+        boolean removed = cart.removeIf(item -> item.getProductId().equals(productId));
+        if (!removed) {
+            throw new ProductNotFoundException("No se encontró el producto con ID: " + productId + " en el carrito.");
+        }
+
+        session.setAttribute(CART_SESSION_KEY, cart);
         return ResponseEntity.ok(cart);
-        
     }
 
     @DeleteMapping("/clear")
     public ResponseEntity<?> clearCart(HttpSession session) {
+        if (session.getAttribute(CART_SESSION_KEY) == null) {
+            throw new CartException("El carrito ya está vacío.");
+        }
         session.removeAttribute(CART_SESSION_KEY);
         return ResponseEntity.ok("Carrito vacío");
     }
 
     @PostMapping("/checkout")
     public ResponseEntity<?> checkout(HttpSession session) {
-    List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
+        List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
 
-    if (cart == null || cart.isEmpty()) {
-        return ResponseEntity.badRequest().body("El carrito está vacío.");
+        if (cart == null || cart.isEmpty()) {
+            throw new CartException("El carrito está vacío. No se puede procesar la compra.");
+        }
+
+        // Simula el proceso de compra
+        session.removeAttribute(CART_SESSION_KEY);  // Vaciar el carrito
+
+        return ResponseEntity.ok("Compra realizada con éxito.");
     }
-
-    // Simula el proceso de compra
-    session.removeAttribute(CART_SESSION_KEY);  // Vaciar el carrito
-
-    return ResponseEntity.ok("Compra realizada con éxito.");
-    }    
 
     @GetMapping("/checkout")
     public String checkoutPage(HttpSession session, Model model) {
-    List<CartProduct> cart = (List<CartProduct>) session.getAttribute("cart");
-    
-    if (cart == null || cart.isEmpty()) {
-        return "redirect:/cart";  // Si el carrito está vacío, redirige a la página del carrito
+        List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
+
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart";  // Si el carrito está vacío, redirige a la página del carrito
+        }
+
+        model.addAttribute("cartItems", cart);
+        return "checkout";  // Muestra la página checkout.html
     }
-
-    model.addAttribute("cartItems", cart);
-    return "checkout";  // Muestra la página checkout.html
 }
 
 
-
-    
-
-}
 
 
 

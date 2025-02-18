@@ -2,8 +2,9 @@ package com.tienda.perfumeria.controllers;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,17 +28,20 @@ public class UserController {
     public ResponseEntity<User> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            throw new BadCredentialsException("Usuario no autenticado");
         }
-        User currentUser = (User) authentication.getPrincipal();
-
-        return ResponseEntity.ok(currentUser);
+        
+        Object principal = authentication.getPrincipal();
+        if (!(principal instanceof User)) {
+            throw new AccessDeniedException("Acceso denegado");
+        }
+        
+        return ResponseEntity.ok((User) principal);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> allUsers() {
         List<User> users = userService.allUsers();
-
         return ResponseEntity.ok(users);
     }
 }

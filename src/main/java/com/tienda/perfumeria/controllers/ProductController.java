@@ -1,7 +1,6 @@
 package com.tienda.perfumeria.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tienda.perfumeria.entities.Product;
+import com.tienda.perfumeria.exceptions.InvalidProductException;
+import com.tienda.perfumeria.exceptions.ProductNotFoundException;
 import com.tienda.perfumeria.services.ProductService;
 
 @RequestMapping("/products")
@@ -44,46 +45,45 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
-        Optional<Product> product = productService.findById(id);
-        return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Producto con ID " + id + " no encontrado"));
+
+        return ResponseEntity.ok(product);
     }
 
-    // Crear un producto
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        if (product.getName() == null || product.getPrice() <= 0) {
+            throw new InvalidProductException("Datos del producto no válidos");
+        }
+
         Product savedProduct = productService.saveProduct(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
-    // Actualizar un producto
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable int id, @RequestBody Product product) {
-        Optional<Product> existingProduct = productService.findById(id);
-
-        if (existingProduct.isEmpty()) {
+        if (productService.findById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        product.setId(id); // Asegurar que el producto tenga el ID correcto
+        product.setId(id); 
         Product updatedProduct = productService.saveProduct(product);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    // Eliminar un producto
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable int id) {
-        try {
-            productService.deleteProduct(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        productService.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Producto con ID " + id + " no encontrado"));
+
+        productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/productos")
     public String getAllProducts(Model model) {
         List<Product> products = productService.findAllProducts();
-        System.out.println("Productos: " + products.size() + "");
         model.addAttribute("products", products);
         return "./fragments/product-list";
     }
@@ -91,32 +91,29 @@ public class ProductController {
     @GetMapping("/recomendados")
     public String findRandomProducts(Model model) {
         List<Product> products = productService.findRandomProducts();
-        System.out.println("Productos recomendados: " + products.size());
         model.addAttribute("products", products);
         return "./fragments/recomendados-list";
     }
 
     @GetMapping("/fragment/{id}")
     public String getProductFragment(@PathVariable int id, Model model) {
-        Optional<Product> product = productService.findById(id);
-        if (product.isPresent()) {
-            model.addAttribute("product", product.get());
-            return "fragments/product-item :: productItem";
-        } else {
-            return "404";
-        }
+        Product product = productService.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Producto con ID " + id + " no encontrado"));
+
+        model.addAttribute("product", product);
+        return "fragments/product-item :: productItem";
     }
 
     @GetMapping("/woman")
     public String getWomenPerfumes(Model model) {
-        List<Product> products = productService.findByFilters(null, null, "WOMEN", null, null); // Filtrar solo por WOMEN
+        List<Product> products = productService.findByFilters(null, null, "WOMEN", null, null); 
         model.addAttribute("products", products);
         return "perfumesMujer";
     }
 
     @GetMapping("/man")
     public String getMenPerfumes(Model model) {
-        List<Product> products = productService.findByFilters(null, null, "MEN", null, null); // Filtrar solo por MEN
+        List<Product> products = productService.findByFilters(null, null, "MEN", null, null); 
         model.addAttribute("products", products);
         return "perfumesHombre";
     }
@@ -134,5 +131,5 @@ public class ProductController {
         model.addAttribute("products", products);
         return "promociones";
     }
-
 }
+
