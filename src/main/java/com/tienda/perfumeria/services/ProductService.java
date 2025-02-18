@@ -58,7 +58,6 @@ public class ProductService {
 
     public List<Product> findRandomProducts() {
         long count = productRepository.count();
-        System.out.println("Total de productos en la base de datos: " + count);
 
         // Si hay menos de 4 productos, devolver todos los productos
         if (count <= 4) {

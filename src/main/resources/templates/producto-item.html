@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Product</title>
@@ -47,23 +47,22 @@
             <li><a th:href="@{/}">Inicio</a></li>
             <li><a th:href="@{/products/woman}">Mujer</a></li>
             <li><a th:href="@{/products/man}">Hombre</a></li>
-            <li><a th:href="@{/productos}">Productos</a></li>
-            <li><a th:href="@{/promociones}">Promociones</a></li>          
+            <li><a th:href="@{/products/all}">Productos</a></li>
+            <li><a th:href="@{/products/promociones}">Promociones</a></li>          
         </ul>
     </nav>
     <section id="product-page"
+        hx-get=""
         hx-trigger="load"
         hx-target="#product-page"
         hx-swap="innerHTML">
     </section>
-
 
 <script>
   const urlParts = window.location.pathname.split('/'); // Ejemplo: "/item/5"
   const productId = urlParts[urlParts.length - 1]; // Obtener "5"
   const productUrl = `/products/fragment/${productId}`;
   document.getElementById("product-page").setAttribute("hx-get", productUrl);
-
   htmx.trigger("#product-page", "load");
 </script>
 
@@ -71,6 +70,8 @@
 <footer> 
   <p class="footer-text">C 2025 - Desarrollado por: Evelin Paumgertner, Emiliano Correa, Facundo Reiseng y Neisa Belleggia </p>
 </footer>
+
+<script th:src="@{/js/cartHtmx.js}"></script>
 
 </body>
 </html>

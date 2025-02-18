@@ -34,7 +34,7 @@
         <nav>
             <ul>
                 <li><a th:href="@{/}">Inicio</a></li>
-                <li><a th:href="@{/productos}">Productos</a></li>
+                <li><a th:href="@{/products/all}">Productos</a></li>
                 <li><a th:href="@{/carrito}">Carrito</a></li>
             </ul>
         </nav>
@@ -47,16 +47,6 @@
                     <span class="header-item">Producto</span>
                     <span class="header-item">Cantidad</span>
                     <span class="header-item">Precio</span>
-                </div>
-                <div class="cart-product">
-                    <span>Producto 1</span>
-                    <span>2</span>
-                    <span>$100</span>
-                </div>
-                <div class="cart-product">
-                    <span>Producto 2</span>
-                    <span>1</span>
-                    <span>$200</span>
                 </div>
             </div>
             <button onclick="clearCart()" class="buy-button">Vaciar Carrito</button>

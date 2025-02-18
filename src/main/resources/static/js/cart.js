@@ -1,5 +1,7 @@
 document.querySelectorAll('.add-to-cart-form').forEach(form => {
+    console.log("salfdmjmafoi");
     form.addEventListener('submit', async event => {
+        console.log("salfdmjmafoi");
         event.preventDefault();
 
         const formData = new FormData(form);
