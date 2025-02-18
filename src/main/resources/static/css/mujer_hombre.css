@@ -172,7 +172,12 @@
 
 /* Estilos de cada artículo */
 article {
-  width: calc(33.33% - 20px); 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 10px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -256,4 +261,28 @@ legend {
     margin-top: 20px;
     margin-bottom: 40px;
     text-align: center;
+  }
+
+  #product-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 5px 5px;
+    padding: 0px 0px;
+    justify-content: space-evenly;
+  }
+
+  #product-list article{
+    width: 100%;
+    max-width: 350px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    align-self: stretch;
+  }
+
+  .add-to-cart-form{
+    padding: 10px;
   }
