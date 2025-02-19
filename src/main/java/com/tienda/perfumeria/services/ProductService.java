@@ -2,6 +2,7 @@ package com.tienda.perfumeria.services;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -21,8 +22,16 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    // Guardar o actualizar un producto
     public Product saveProduct(Product product) {
+        Float discount = product.getDiscount(); 
+    
+        if (discount < 0.0f){
+            throw new IllegalArgumentException("El descuento no puede ser negativo.");
+        }
+        else {
+            discount = discount * 0.01f;
+            product.setDiscount(discount); 
+        }
         return productRepository.save(product);
     }
 
@@ -74,17 +83,8 @@ public class ProductService {
         return allProducts.subList(0, 4);
     }
 
-    public List<Product> findTenProducts() {
-        long count = productRepository.count();
-
-        if (count <= 10) {
-            return productRepository.findAll();
-        }
-
-        List<Product> allProducts = productRepository.findAll();
-        Collections.shuffle(allProducts);
-
-        return allProducts.subList(0, 10);
+    public List<Product> findDiscountProducts() {
+        return productRepository.findByDiscountGreaterThan(0.0f);
     }
 
 }

@@ -54,9 +54,9 @@ public class ShoppingCartController {
         }
 
         CartProduct cartProduct = productRepository.findById(cartItemDto.getProductId())
-                .map(product -> new CartProduct(product.getId(), product.getName(), cartItemDto.getQuantity(), product.getPrice()))
+                .map(product -> new CartProduct(product.getId(), product.getName(), cartItemDto.getQuantity(), (product.getPrice()*(1-product.getDiscount()))))
                 .orElseThrow(() -> new ProductNotFoundException("Producto no encontrado con ID: " + cartItemDto.getProductId()));
-
+            
         cart.add(cartProduct);
         return ResponseEntity.ok(cart);
     }

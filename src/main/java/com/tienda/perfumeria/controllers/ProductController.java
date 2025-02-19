@@ -127,7 +127,7 @@ public class ProductController {
 
     @GetMapping("/promociones")
     public String getPromocionesPerfumes(Model model) {
-        List<Product> products = productService.findTenProducts();
+        List<Product> products = productService.findDiscountProducts();
         model.addAttribute("products", products);
         return "promociones";
     }

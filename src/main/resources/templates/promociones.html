@@ -64,8 +64,13 @@
             </a>          
             <h2 th:text="${product.name}"></h2>
             <p th:text="${product.description}"></p>
-            <p th:text="'$' + ${product.price}"></p>
-            <p>6 Cuotas de <span th:text="'$' + ${product.price / 6}"></span></p>
+            <p>
+                <s th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 2)}"></s>
+                <span th:text="'$' + ${#numbers.formatDecimal(product.price * (1 - product.discount), 1, 2)}" class="new-price"></span>
+            </p>
+            <p th:text="${#numbers.formatInteger((product.discount *100), 1)} + '% de Descuento'"></p> 
+            <p>6 Cuotas de <span th:text="'$' + ${#numbers.formatDecimal(product.price / 6, 1, 2)}"></span></p>
+            
 
         <fieldset>
             <legend>Elegí un tamaño</legend>

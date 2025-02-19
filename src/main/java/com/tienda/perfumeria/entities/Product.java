@@ -18,7 +18,8 @@ public class Product {
                 + " price= " + price + '\''
                 + " brand= " + brand + '\''
                 + " category= " + category)
-                + " image= " + image + '\'';
+                + " image= " + image + '\''
+                + " discount= " + discount + '\'';
     }
 
     @Id
@@ -81,6 +82,13 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+    public float getDiscount() {
+        return discount;
+    }
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
 
     @Column(nullable = false)
     private String name;
@@ -99,4 +107,9 @@ public class Product {
 
     @Column(nullable = false)
     private String image;
+
+    @Column(nullable = false)
+    private float discount;
+
+
 }
