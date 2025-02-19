@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tienda.perfumeria.controllers.validator.UserValidator;
 import com.tienda.perfumeria.dtos.LoginUserDto;
 import com.tienda.perfumeria.dtos.RegisterUserDto;
 import com.tienda.perfumeria.entities.User;
@@ -27,6 +28,7 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
+        UserValidator.validateRegisterUser(input);
         var user = new User();
         var name = input.getName();
         var email = input.getEmail();
@@ -47,7 +49,7 @@ public class AuthenticationService {
     }
 
     public User authenticate(LoginUserDto input) {
-        
+        UserValidator.validateLoginUser(input);
         User user = userRepository.findByEmail(input.getEmail())
             .orElseThrow(() -> new RuntimeException("User not found"));
     
