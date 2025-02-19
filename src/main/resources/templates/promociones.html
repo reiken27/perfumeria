@@ -69,7 +69,7 @@
                 <span th:text="'$' + ${#numbers.formatDecimal(product.price * (1 - product.discount), 1, 2)}" class="new-price"></span>
             </p>
             <p th:text="${#numbers.formatInteger((product.discount *100), 1)} + '% de Descuento'"></p> 
-            <p>6 Cuotas de <span th:text="'$' + ${#numbers.formatDecimal(product.price / 6, 1, 2)}"></span></p>
+            <p>6 Cuotas de <span th:text="'$' + ${#numbers.formatDecimal((product.price*(1-product.discount)) / 6, 1, 2)}"></span></p>
             
 
         <fieldset>

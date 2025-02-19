@@ -90,12 +90,12 @@
                 <tbody>
                     <tr th:each="item : ${cartItems}">
                         <td th:text="${item.productName}"></td>
-                        <td th:text="${item.price}"></td>
+                        <td th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}"></td>
                     </tr>
                 </tbody>
             </table>
 
-            <p><strong>Total a pagar:</strong> <span th:text="${#aggregates.sum(cartItems.![quantity * price])}"></span></p>
+            <p><strong>Total a pagar:</strong> <span th:text="${#numbers.formatDecimal(#aggregates.sum(cartItems.![quantity * price]),1,2)}"></span></p>
 
             <button onclick="finalizarCompra()">Finalizar Compra</button>
         </aside>
