@@ -21,6 +21,10 @@ public class Role implements GrantedAuthority {
     private String name;
 
     public Role() {
+        Init();
+    }
+
+    private void Init() {
     }
 
     public Role(String name) {

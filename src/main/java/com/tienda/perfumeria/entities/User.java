@@ -47,7 +47,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String mobileNum;
 
-    @ManyToMany(fetch = FetchType.EAGER) // Carga los roles automáticamente
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -55,9 +55,22 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    public User() {
+    }
+
+    public User(String name, String lastName, String email, String password, Date birthDate, String mobileNum, Set<Role> roles) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.birthDate = birthDate;
+        this.mobileNum = mobileNum;
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles; // Spring Security usará estos roles
+        return roles;
     }
 
     @Override

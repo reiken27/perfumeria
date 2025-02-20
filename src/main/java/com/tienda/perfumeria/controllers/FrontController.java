@@ -21,7 +21,7 @@ public class FrontController {
 
     @GetMapping("signup")
     public String showSignupForm() {
-        return "signup"; // Renderiza signup.html
+        return "signup";
     }
 
     @GetMapping("carrito")

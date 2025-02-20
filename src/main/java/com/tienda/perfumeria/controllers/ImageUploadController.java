@@ -22,32 +22,29 @@ import com.tienda.perfumeria.exceptions.InvalidProductException;
 @RequestMapping("/api/images")
 public class ImageUploadController {
 
-    @Value("${file.upload-dir}") // Inject the upload directory from properties
+    @Value("${file.upload-dir}")
     private String uploadDir;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            throw new InvalidProductException("El archivo está vacío");  // Lanza InvalidProductException
+            throw new InvalidProductException("El archivo está vacío");
         }
 
         try {
-            // Ensure the upload directory exists
             File directory = new File(uploadDir);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
 
-            // Generate a unique filename
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(uploadDir, fileName);
 
-            // Save the file to the local storage
             Files.write(filePath, file.getBytes());
 
             return ResponseEntity.ok(fileName);
         } catch (IOException e) {
-            throw new CartException("Error al subir el archivo");  // Lanza CartException si ocurre un error de IO
+            throw new CartException("Error al subir el archivo");
         }
     }
 }

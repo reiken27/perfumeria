@@ -44,7 +44,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        // Buscar el JWT en las cookies
         String jwt = extractJwtFromCookies(request);
 
         if (jwt == null) {
@@ -53,7 +52,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         try {
-            // Extraer el usuario del token JWT
             final String userEmail = jwtService.extractUsername(jwt);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,16 +59,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (userEmail != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-                // Validar el token
                 if (jwtService.isTokenValid(jwt, userDetails)) {
-                    // Crear un objeto de autenticación
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities()
                     );
 
-                    // Establecer los detalles de autenticación
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
@@ -82,12 +77,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
-    // Método para extraer el JWT desde las cookies
     private String extractJwtFromCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("jwt".equals(cookie.getName())) {  // Asegúrate de que el nombre de la cookie sea "JWT"
+                if ("jwt".equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }

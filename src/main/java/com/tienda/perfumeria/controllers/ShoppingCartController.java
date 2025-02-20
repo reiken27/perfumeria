@@ -6,7 +6,12 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tienda.perfumeria.dtos.CartItemDto;
 import com.tienda.perfumeria.entities.CartProduct;
@@ -30,6 +35,9 @@ public class ShoppingCartController {
     @GetMapping
     public ResponseEntity<?> getCart(HttpSession session) {
         List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
+
+        int timeout = session.getMaxInactiveInterval(); // en segundos
+
         if (cart == null) {
             cart = new ArrayList<>();
             session.setAttribute(CART_SESSION_KEY, cart);
@@ -93,9 +101,7 @@ public class ShoppingCartController {
         if (cart == null || cart.isEmpty()) {
             throw new CartException("El carrito está vacío. No se puede procesar la compra.");
         }
-
-        // Simula el proceso de compra
-        session.removeAttribute(CART_SESSION_KEY);  // Vaciar el carrito
+        session.removeAttribute(CART_SESSION_KEY);
 
         return ResponseEntity.ok("Compra realizada con éxito.");
     }
@@ -105,15 +111,10 @@ public class ShoppingCartController {
         List<CartProduct> cart = (List<CartProduct>) session.getAttribute(CART_SESSION_KEY);
 
         if (cart == null || cart.isEmpty()) {
-            return "redirect:/cart";  // Si el carrito está vacío, redirige a la página del carrito
+            return "redirect:/cart";
         }
 
         model.addAttribute("cartItems", cart);
-        return "checkout";  // Muestra la página checkout.html
+        return "checkout";
     }
 }
-
-
-
-
-

@@ -55,13 +55,11 @@ public class AuthenticationController {
             LoginUserDto loginUserDto = new LoginUserDto().setEmail(email).setPassword(password);
             User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
-            // Generar token JWT
             String jwtToken = jwtService.generateToken(authenticatedUser);
             int maxAge = (int) (jwtService.getExpirationTime());
             String cookieValue = "jwt=" + jwtToken + "; Path=/; HttpOnly; SameSite=Strict; Max-Age=" + maxAge;
             response.addHeader("Set-Cookie", cookieValue);
 
-            // Enviar la respuesta con el token y el tiempo de expiración
             LoginResponse loginResponse = new LoginResponse().setToken(jwtToken).setExpiresIn(jwtService.getExpirationTime());
 
             return ResponseEntity.ok(loginResponse);
@@ -88,4 +86,3 @@ public class AuthenticationController {
         }
     }
 }
-
