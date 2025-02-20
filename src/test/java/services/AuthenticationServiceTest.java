@@ -17,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.tienda.perfumeria.controllers.validator.UserValidator;
 import com.tienda.perfumeria.dtos.LoginUserDto;
 import com.tienda.perfumeria.dtos.RegisterUserDto;
 import com.tienda.perfumeria.entities.User;
@@ -84,17 +86,21 @@ class AuthenticationServiceTest {
 
     @Test
     void testSignup_Success() {
-        when(passwordEncoder.encode(registerUserDto.getPassword())).thenReturn("encodedPassword");
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        try (var mockedValidator = mockStatic(UserValidator.class)) {
+            mockedValidator.when(() -> UserValidator.validateRegisterUser(registerUserDto)).thenAnswer(invocation -> null);
+            
+            when(passwordEncoder.encode(registerUserDto.getPassword())).thenReturn("encodedPassword");
+            when(userRepository.save(any(User.class))).thenReturn(user);
 
-        User createdUser = authenticationService.signup(registerUserDto);
+            User createdUser = authenticationService.signup(registerUserDto);
 
-        assertNotNull(createdUser);
-        assertEquals("John", createdUser.getName());
-        assertEquals("john.doe@example.com", createdUser.getEmail());
-        assertEquals("encodedPassword", createdUser.getPassword());
+            assertNotNull(createdUser);
+            assertEquals("John", createdUser.getName());
+            assertEquals("john.doe@example.com", createdUser.getEmail());
+            assertEquals("encodedPassword", createdUser.getPassword());
 
-        verify(userRepository, times(1)).save(any(User.class));
+            verify(userRepository, times(1)).save(any(User.class));
+        }
     }
 
     @Test
