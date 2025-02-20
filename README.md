@@ -7,8 +7,8 @@ El sistema permite la gestión de productos, usuarios, compras y pagos, contando
 
 ## 1.1 Cómo ejecutar el proyecto
 - Tener MySQL instalado y corriendo
-- Crear una base de datos llamada "Perfumeria"
-- Modificar el archivo application.properties con sus credecnciales:
+- Importar perfumeria.sql en la base de datos para cargar la estructura y datos iniciales.
+- Modificar el archivo application.properties con sus credenciales:
     spring.datasource.username=
     spring.datasource.password=
 - Compilar y ejecutar proyecto con: mvn spring-boot:run
