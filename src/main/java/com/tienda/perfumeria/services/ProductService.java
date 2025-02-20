@@ -35,7 +35,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    // Eliminar un producto por ID
     public void deleteProduct(int id) {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
@@ -44,7 +43,6 @@ public class ProductService {
         }
     }
 
-    // Buscar por múltiples filtros
     public List<Product> findByFilters(String brand, String name, String category, Double minPrice, Double maxPrice) {
         Category categoryEnum = (category != null) ? Category.valueOf(category.toUpperCase()) : null;
 
@@ -60,7 +58,6 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    // Buscar por ID
     public Optional<Product> findById(int id) {
         return productRepository.findById(id);
     }
@@ -68,18 +65,14 @@ public class ProductService {
     public List<Product> findRandomProducts() {
         long count = productRepository.count();
 
-        // Si hay menos de 4 productos, devolver todos los productos
         if (count <= 4) {
             return productRepository.findAll();
         }
 
-        // Obtener todos los productos
         List<Product> allProducts = productRepository.findAll();
 
-        // Mezclar los productos aleatoriamente
         Collections.shuffle(allProducts);
 
-        // Retornar los primeros 4 productos aleatorios
         return allProducts.subList(0, 4);
     }
 

@@ -22,7 +22,7 @@ import com.tienda.perfumeria.exceptions.ProductNotFoundException;
 @RequestMapping("/api/images")
 public class ImageServeController {
 
-    private final String uploadDir = "uploads/"; // Ensure this matches your storage location
+    private final String uploadDir = "uploads/";
 
     @GetMapping("/{fileName}")
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
@@ -32,7 +32,7 @@ public class ImageServeController {
 
             if (resource.exists() && resource.isReadable()) {
                 return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_PNG) // You can make this dynamic
+                        .contentType(MediaType.IMAGE_PNG)
                         .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
                         .body(resource);
             } else {
@@ -45,4 +45,3 @@ public class ImageServeController {
         }
     }
 }
-
